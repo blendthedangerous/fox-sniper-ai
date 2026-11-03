@@ -1,130 +1,302 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sq">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090b10">
 <title>Blend The Dangerous Bot</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090b10;color:#f3f5fa;font-family:Arial,sans-serif}
-header{padding:23px 17px;background:#111722;border-bottom:1px solid #293142}
-h1{font-size:23px;line-height:1.2;margin:0;font-weight:900}
+body{margin:0;background:#090b10;color:#f4f5f7;font-family:Arial,sans-serif}
+header{padding:22px 16px;background:#111722;border-bottom:1px solid #30394a}
+h1{font-size:23px;margin:0;font-weight:900}
 .gold{color:#ffb52e}
-main{padding:15px;max-width:680px;margin:auto}
-.card{background:#111722;border:1px solid #293142;border-radius:14px;padding:16px;margin-bottom:14px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.muted{font-size:12px;color:#95a0b4;line-height:1.6}
+main{max-width:700px;margin:auto;padding:14px}
+.card{background:#111722;border:1px solid #30394a;border-radius:15px;padding:15px;margin-bottom:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#1a2230;border-radius:10px;padding:13px}
+.label,.muted{font-size:12px;color:#9ca8bb;line-height:1.6}
+.value{font-size:23px;font-weight:bold;margin-top:5px;overflow-wrap:anywhere}
 button{border:0;border-radius:9px;padding:13px;font-weight:bold;cursor:pointer}
-.primary{background:#ffb52e;color:#17120a}
+.primary{background:#ffb52e;color:#16120a}
 .secondary{background:#273248;color:white}
-.full{width:100%;margin-top:8px}
-.token{border-top:1px solid #293142;padding:14px 0}
-.signal{font-size:20px;font-weight:900;margin:10px 0}
-.wait{color:#ffca70}.buy{color:#7ce5a1}.avoid{color:#ff7777}
-.tag{font-size:11px;color:#ffca70}
+.full{width:100%;margin-top:9px}
+input{width:100%;padding:12px;border-radius:8px;border:1px solid #384358;background:#0a0e16;color:white;margin:7px 0}
+.green{color:#72e5a0}.red{color:#ff7979}.yellow{color:#ffca70}
+.token{border-top:1px solid #30394a;padding:12px 0;overflow-wrap:anywhere}
 a{color:#ffb52e}
 </style>
 </head>
 <body>
 <header>
- <h1>BLEND THE <span class="gold">DANGEROUS</span> BOT</h1>
- <p class="muted">SOLANA · PUMP.FUN · FAST SCANNER</p>
+<h1>BLEND THE <span class="gold">DANGEROUS</span> BOT</h1>
+<div class="muted">SOLANA · PAPER TRADING · SIMULIM VIRTUAL</div>
 </header>
 <main>
- <div class="card">
-  <div class="row">
-   <b>Live token scanner</b>
-   <span id="status" class="tag">OFFLINE</span>
-  </div>
-  <p class="muted">Monitors new tokens and observes trade activity. No wallet connected.</p>
-  <button class="primary full" onclick="start()">START FAST SCAN</button>
-  <button class="secondary full" onclick="stop()">STOP SCAN</button>
+<div class="card">
+ <div class="grid">
+  <div class="stat"><div class="label">BILANCI VIRTUAL</div><div class="value" id="balance">€20.00</div></div>
+  <div class="stat"><div class="label">FITIMI / HUMBJA NETO</div><div class="value" id="pnl">€0.00</div></div>
+  <div class="stat"><div class="label">TREGTI TË MBYLLURA</div><div class="value" id="closed">0</div></div>
+  <div class="stat"><div class="label">POZITA AKTIVE</div><div class="value" id="open">0</div></div>
  </div>
- <div class="card">
-  <div class="muted">SIGNAL LEGEND</div>
-  <p class="muted"><b class="buy">BUY NOW</b> — only when all configured entry checks pass.</p>
-  <p class="muted"><b class="wait">WAIT</b> — insufficient evidence for an entry.</p>
-  <p class="muted"><b class="avoid">AVOID</b> — a configured risk check has failed.</p>
- </div>
- <div class="card">
-  <div class="row"><b>Newest tokens</b><span id="count" class="muted">0 detected</span></div>
-  <div id="list" class="muted" style="margin-top:12px">Press START FAST SCAN.</div>
- </div>
- <div class="card">
-  <b>Safety</b>
-  <p class="muted">Experimental signals only. This version does not verify liquidity locks, holder concentration, contract risks, or execution costs. It will not claim BUY NOW from token creation alone.</p>
- </div>
-</main>
-<script>
-let ws=null;
-const tokens=new Map();
-const $=id=>document.getElementById(id);
+ <p class="muted">Bilanc testues. Asnjë para reale nuk shpenzohet.</p>
+ <button class="primary full" id="startBtn" onclick="startBot()">START AUTO TEST</button>
+ <button class="secondary full" onclick="stopBot()">STOP BOT</button>
+ <button class="secondary full" onclick="resetBot()">RESET TEST (€20)</button>
+ <div id="status" class="muted" style="margin-top:12px">Gati për testim.</div>
+</div>
 
-function start(){
- if(ws && (ws.readyState===0||ws.readyState===1))return;
- $('status').textContent='CONNECTING';
- $('list').textContent='Waiting for new tokens...';
+<div class="card">
+ <b>Rregullat e simulimit</b>
+ <div class="muted">
+  • Kapital fillestar: €20<br>
+  • Maksimumi për blerje: €2<br>
+  • Objektivi i fitimit: +10%<br>
+  • Kufiri i humbjes: −5%<br>
+  • Maksimumi 3 pozita njëkohësisht<br>
+  • Blerje vetëm kur gjendet çmim i tregut<br>
+  • Vlerësim i tarifave: 1% për blerje dhe 1% për shitje, plus 0.5% slippage për secilën anë.
+ </div>
+</div>
+
+<div class="card">
+ <b>Historia e tregtive</b>
+ <div id="history" class="muted" style="margin-top:10px">Ende nuk ka tregti.</div>
+</div>
+
+<div class="card">
+ <b>Tokenët që po monitorohen</b>
+ <div id="tokens" class="muted" style="margin-top:10px">Shtyp START AUTO TEST.</div>
+</div>
+
+<div class="card">
+ <b>Shënim i rëndësishëm</b>
+ <p class="muted">Ky version përdor njoftimet për tokenë të rinj dhe kërkon çmime nga Dexscreener. Shumë tokenë të sapokrijuar nuk kanë ende çmim të disponueshëm atje, prandaj mund të mos bëhet asnjë tregti. Ky është simulim, jo test i plotë i ekzekutimit në Pump.fun. Rezultatet nuk garantojnë fitim real.</p>
+</div>
+</main>
+
+<script>
+const START_BALANCE=20;
+const BET=2;
+const MAX_POSITIONS=3;
+const TAKE_PROFIT=0.10;
+const STOP_LOSS=-0.05;
+const FEE_PER_SIDE=0.01;
+const SLIPPAGE_PER_SIDE=0.005;
+
+let balance=START_BALANCE;
+let realized=0;
+let running=false;
+let ws=null;
+let scanTimer=null;
+let refreshTimer=null;
+let candidates=new Map();
+let positions=new Map();
+let history=[];
+let busy=new Set();
+
+const $=id=>document.getElementById(id);
+const euro=n=>'€'+n.toFixed(2);
+const pct=n=>(n>=0?'+':'')+(n*100).toFixed(2)+'%';
+
+function saveStatus(s){$('status').textContent=s}
+
+function updateUI(){
+ $('balance').textContent=euro(balance);
+ $('pnl').textContent=euro(realized);
+ $('pnl').className='value '+(realized>=0?'green':'red');
+ $('closed').textContent=history.length;
+ $('open').textContent=positions.size;
+ $('startBtn').textContent=running?'BOT RUNNING':'START AUTO TEST';
+
+ $('history').innerHTML=history.length?history.slice(0,25).map(h=>
+  '<div class="token"><b class="'+(h.pnl>=0?'green':'red')+'">'+
+  (h.pnl>=0?'PLUS ':'MINUS ')+euro(h.pnl)+'</b><br>'+
+  safe(h.name)+' · '+pct(h.change)+'<br><span class="muted">'+
+  safe(h.reason)+' · '+safe(h.time)+'</span></div>'
+ ).join(''):'Ende nuk ka tregti të mbyllura.';
+
+ const list=[...candidates.values()].slice(0,20);
+ $('tokens').innerHTML=list.length?list.map(t=>{
+  const p=positions.get(t.mint);
+  return '<div class="token"><b>'+safe(t.name)+'</b> ('+
+   safe(t.symbol||'?')+')<br><span class="muted">'+
+   (t.price?'Çmimi: $'+Number(t.price).toPrecision(7):'Duke kërkuar çmimin...')+
+   '</span><br><span class="'+(p?'green':'yellow')+'">'+
+   (p?'POZITË VIRTUALE AKTIVE':t.attempted?'WAIT · pa hyrje të konfirmuar':'WAIT · në monitorim')+
+   '</span><br><a target="_blank" rel="noopener" href="https://pump.fun/coin/'+
+   encodeURIComponent(t.mint)+'">Hape tokenin</a></div>';
+ }).join(''):'Nuk ka tokenë në listë.';
+}
+
+function safe(v){
+ return String(v||'').replace(/[&<>"']/g,c=>({
+ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ }[c]));
+}
+
+async function getPrice(mint){
+ try{
+  const res=await fetch('https://api.dexscreener.com/token-pairs/v1/solana/'+encodeURIComponent(mint));
+  if(!res.ok)return null;
+  const pairs=await res.json();
+  if(!Array.isArray(pairs)||!pairs.length)return null;
+
+  const valid=pairs.filter(p=>
+   p.chainId==='solana'&&p.priceUsd&&Number(p.priceUsd)>0
+  );
+  if(!valid.length)return null;
+
+  valid.sort((a,b)=>Number(b.liquidity?.usd||0)-Number(a.liquidity?.usd||0));
+  return Number(valid[0].priceUsd);
+ }catch(e){return null}
+}
+
+function addToken(d){
+ const mint=d.mint||d.token;
+ if(!mint||candidates.has(mint))return;
+ const t={
+  mint,
+  name:d.name||'Token i ri',
+  symbol:d.symbol||'',
+  price:null,
+  attempted:false,
+  created:Date.now()
+ };
+ candidates.set(mint,t);
+ while(candidates.size>100){
+  const first=candidates.keys().next().value;
+  if(positions.has(first)){break}
+  candidates.delete(first);
+ }
+ updateUI();
+}
+
+async function refreshPrices(){
+ if(!running)return;
+ const list=[...candidates.values()].slice(0,30);
+
+ for(const t of list){
+  if(!running)break;
+  if(busy.has(t.mint))continue;
+  busy.add(t.mint);
+
+  const price=await getPrice(t.mint);
+  if(price&&Number.isFinite(price)){
+   t.price=price;
+   const pos=positions.get(t.mint);
+   if(pos){
+    const change=price/pos.entry-1;
+    if(change>=TAKE_PROFIT)closePosition(t,'Objektivi i fitimit',price);
+    else if(change<=STOP_LOSS)closePosition(t,'Kufiri i humbjes',price);
+   }else if(!t.attempted&&positions.size<MAX_POSITIONS&&balance>=BET){
+    // Hyrja lejohet vetëm pasi të ekzistojë çmim i tregut.
+    // Kjo është hyrje virtuale, jo urdhër real.
+    t.attempted=true;
+    openPosition(t,price);
+   }
+  }
+  busy.delete(t.mint);
+ }
+ updateUI();
+}
+
+function openPosition(t,price){
+ if(positions.size>=MAX_POSITIONS||balance<BET)return;
+ const cost=BET;
+ balance-=cost;
+ positions.set(t.mint,{
+  mint:t.mint,
+  name:t.name,
+  entry:price,
+  cost,
+  time:Date.now()
+ });
+ updateUI();
+}
+
+function closePosition(t,reason,price){
+ const pos=positions.get(t.mint);
+ if(!pos||!price||!Number.isFinite(price))return;
+
+ const grossChange=price/pos.entry-1;
+ const entryCost=pos.cost;
+ const entryFee=entryCost*(FEE_PER_SIDE+SLIPPAGE_PER_SIDE);
+ const exitValue=entryCost*(price/pos.entry);
+ const exitCosts=exitValue*(FEE_PER_SIDE+SLIPPAGE_PER_SIDE);
+ const returned=Math.max(0,exitValue-exitCosts);
+ const pnl=returned-entryCost-entryFee;
+
+ balance+=returned;
+ realized+=pnl;
+ positions.delete(t.mint);
+
+ history.unshift({
+  name:t.name,
+  pnl,
+  change:grossChange,
+  reason,
+  time:new Date().toLocaleTimeString()
+ });
+ updateUI();
+}
+
+function startBot(){
+ if(running)return;
+ running=true;
+ saveStatus('Duke u lidhur me burimin e tokenëve...');
  try{
   ws=new WebSocket('wss://pumpportal.fun/api/data');
   ws.onopen=()=>{
-   $('status').textContent='CONNECTED';
+   if(!running){ws.close();return}
    ws.send(JSON.stringify({method:'subscribeNewToken'}));
+   saveStatus('Lidhja aktive. Duke pritur tokenë dhe çmime të disponueshme.');
   };
-  ws.onmessage=event=>{
-   let d;
-   try{d=JSON.parse(event.data)}catch{return}
-   if(d.txType && (d.mint||d.token)) {
-    const t=tokens.get(d.mint||d.token);
-    if(t){
-     t.trades++;
-     if(String(d.txType).toLowerCase()==='buy')t.buys++;
-     if(String(d.txType).toLowerCase()==='sell')t.sells++;
-     renderOne(t);
-    }
-    return;
-   }
-   if(!d.mint||tokens.has(d.mint))return;
-   const t={mint:d.mint,name:d.name||'Unknown token',
-    symbol:d.symbol||'',trades:0,buys:0,sells:0};
-   tokens.set(t.mint,t);
-   ws.send(JSON.stringify({method:'subscribeTokenTrade',keys:[t.mint]}));
-   renderOne(t);
-   $('count').textContent=tokens.size+' detected';
+  ws.onmessage=e=>{
+   try{
+    const d=JSON.parse(e.data);
+    if(d.mint)addToken(d);
+   }catch(err){}
   };
-  ws.onerror=()=>{$('status').textContent='FEED ERROR'};
-  ws.onclose=()=>{$('status').textContent='DISCONNECTED';ws=null};
- }catch(e){$('status').textContent='ERROR'}
-}
-function renderOne(t){
- let el=document.getElementById('t-'+t.mint);
- if(!el){
-  if($('list').classList.contains('muted'))$('list').innerHTML='';
-  el=document.createElement('div');
-  el.className='token';
-  el.id='t-'+t.mint;
-  const title=document.createElement('b');
-  title.textContent=t.name+' ('+t.symbol+')';
-  const signal=document.createElement('div');
-  signal.className='signal wait';
-  signal.textContent='WAIT';
-  const stats=document.createElement('div');
-  stats.className='muted';
-  const link=document.createElement('a');
-  link.href='https://pump.fun/coin/'+encodeURIComponent(t.mint);
-  link.target='_blank';link.rel='noopener';link.textContent='Open token';
-  el.append(title,signal,stats,document.createElement('br'),link);
-  $('list').prepend(el);
-  while($('list').children.length>30)$('list').lastElementChild.remove();
+  ws.onerror=()=>saveStatus('Gabim në lidhje. Kontrollo internetin.');
+  ws.onclose=()=>{
+   if(running)saveStatus('Lidhja u ndërpre. Shtyp STOP pastaj START.');
+  };
+  refreshTimer=setInterval(refreshPrices,8000);
+  scanTimer=setInterval(updateUI,3000);
+ }catch(e){
+  running=false;
+  saveStatus('Nuk u lidh. Provo përsëri.');
  }
- el.querySelector('.muted').textContent=
-  'Observed trades: '+t.trades+' · Buys: '+t.buys+' · Sells: '+t.sells;
- const signal=el.querySelector('.signal');
- signal.className='signal wait';
- signal.textContent=t.trades<20?'WAIT · collecting trade data':'WAIT · risk checks not verified';
+ updateUI();
 }
-function stop(){if(ws)ws.close();ws=null;$('status').textContent='STOPPED'}
+
+function stopBot(){
+ running=false;
+ if(ws){ws.close();ws=null}
+ clearInterval(refreshTimer);
+ clearInterval(scanTimer);
+ refreshTimer=null;
+ scanTimer=null;
+ saveStatus('BOT STOPPED. Pozitat virtuale ruhen deri në reset ose vazhdim.');
+ updateUI();
+}
+
+function resetBot(){
+ stopBot();
+ balance=START_BALANCE;
+ realized=0;
+ candidates=new Map();
+ positions=new Map();
+ history=[];
+ busy=new Set();
+ updateUI();
+ saveStatus('Testi u resetua. Bilanci virtual: €20.00');
+}
+
+updateUI();
 </script>
 </body>
 </html>
