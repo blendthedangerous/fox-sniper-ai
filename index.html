@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b12">
+<title>FOX SNIPER AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080b12;color:#f4f6fc;font-family:Arial,sans-serif}
+header{padding:22px 18px;background:#111725;border-bottom:1px solid #283044}
+.logo{font-size:24px;font-weight:900;letter-spacing:2px}
+.logo span{color:#ffb52e}
+.sub{font-size:12px;color:#8e9ab0;margin-top:7px}
+main{padding:16px;max-width:650px;margin:auto}
+.card{background:#111725;border:1px solid #293248;border-radius:14px;padding:16px;margin-bottom:14px}
+h2{font-size:16px;margin:0 0 12px}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.value{font-size:24px;font-weight:bold}
+.muted{color:#8e9ab0;font-size:12px}
+button{border:0;border-radius:9px;padding:12px 14px;font-weight:bold;cursor:pointer}
+.primary{background:#ffb52e;color:#15110a}
+.secondary{background:#253047;color:white}
+input{width:100%;padding:12px;background:#080b12;border:1px solid #344058;border-radius:8px;color:white;margin:10px 0}
+.status{color:#ffb52e;font-size:12px}
+.item{padding:12px 0;border-top:1px solid #293248}
+footer{text-align:center;color:#77849b;font-size:11px;padding:18px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">FOX <span>SNIPER</span> AI</div>
+  <div class="sub">SOLANA TOKEN SCANNER · TEST MODE</div>
+</header>
+<main>
+  <div class="card">
+    <div class="row">
+      <div><div class="muted">MODE</div><b>Paper monitoring</b></div>
+      <div class="status" id="status">● NOT CONNECTED</div>
+    </div>
+    <p class="muted">Monitor new Pump.fun tokens without connecting a wallet.</p>
+    <button class="primary" onclick="connect()">CONNECT TOKEN FEED</button>
+    <button class="secondary" onclick="disconnect()">STOP</button>
+  </div>
+  <div class="card">
+    <div class="muted">VIRTUAL TEST BALANCE</div>
+    <div class="value">€20.00</div>
+    <div class="muted">Simulation only · No real funds</div>
+  </div>
+  <div class="card">
+    <h2>New token feed</h2>
+    <div class="muted">Newest tokens will appear here when the live feed connects.</div>
+    <div id="tokens"><div class="item muted">No tokens received yet.</div></div>
+  </div>
+  <div class="card">
+    <h2>Manual review</h2>
+    <p class="muted">Paste a token mint address to keep track of it. This does not buy the token or verify that it is safe.</p>
+    <input id="mint" placeholder="Solana token mint address">
+    <button class="primary" onclick="addMint()">ADD TO WATCHLIST</button>
+    <div id="watchlist"></div>
+  </div>
+  <div class="card">
+    <h2>Risk rules</h2>
+    <div class="muted">✓ No wallet connection</div>
+    <div class="muted">✓ No automatic purchases</div>
+    <div class="muted">✓ Review tokens before any decision</div>
+    <div class="muted">⚠ New tokens can lose almost all their value.</div>
+  </div>
+</main>
+<footer>FOX SNIPER AI · Experimental prototype · Not financial advice</footer>
+<script>
+let socket=null;
+let seen=new Set();
+function connect(){
+ if(socket && socket.readyState===WebSocket.OPEN)return;
+ try{
+  socket=new WebSocket('wss://pumpportal.fun/api/data');
+  socket.onopen=()=>{
+   document.getElementById('status').textContent='● FEED CONNECTED';
+   socket.send(JSON.stringify({method:'subscribeNewToken'}));
+  };
+  socket.onmessage=e=>{
+   let d;
+   try{d=JSON.parse(e.data)}catch{return}
+   const mint=d.mint||d.tokenAddress;
+   if(!mint||seen.has(mint))return;
+   seen.add(mint);
+   const div=document.createElement('div');
+   div.className='item';
+   const name=String(d.name||'Unknown token').slice(0,80);
+   const symbol=String(d.symbol||'').slice(0,20);
+   const link='https://pump.fun/coin/'+encodeURIComponent(mint);
+   div.innerHTML='<b></b><div class="muted"></div><div style="margin-top:8px"><button class="secondary">VIEW TOKEN</button></div>';
+   div.children[0].textContent=name+' ('+symbol+')';
+   div.children[1].textContent=mint;
+   div.querySelector('button').onclick=()=>window.open(link,'_blank');
+   const list=document.getElementById('tokens');
+   if(list.firstElementChild?.textContent.includes('No tokens'))list.innerHTML='';
+   list.prepend(div);
+   while(list.children.length>30)list.lastElementChild.remove();
+  };
+  socket.onclose=()=>document.getElementById('status').textContent='● DISCONNECTED';
+  socket.onerror=()=>document.getElementById('status').textContent='● FEED ERROR';
+ }catch(e){document.getElementById('status').textContent='● CONNECTION ERROR'}
+}
+function disconnect(){
+ if(socket)socket.close();
+ socket=null;
+ document.getElementById('status').textContent='● STOPPED';
+}
+function addMint(){
+ const input=document.getElementById('mint');
+ const mint=input.value.trim();
+ if(!mint)return alert('Paste a token mint address first.');
+ const div=document.createElement('div');
+ div.className='item';
+ const link=document.createElement('a');
+ link.href='https://pump.fun/coin/'+encodeURIComponent(mint);
+ link.target='_blank';
+ link.rel='noopener';
+ link.textContent=mint;
+ link.style.color='#ffb52e';
+ div.appendChild(link);
+ document.getElementById('watchlist').prepend(div);
+ input.value='';
+}
+</script>
+</body>
+</html>
