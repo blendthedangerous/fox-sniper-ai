@@ -3,127 +3,141 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080b12">
 <title>FOX SNIPER AI</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080b12;color:#f4f6fc;font-family:Arial,sans-serif}
-header{padding:22px 18px;background:#111725;border-bottom:1px solid #283044}
-.logo{font-size:24px;font-weight:900;letter-spacing:2px}
-.logo span{color:#ffb52e}
-.sub{font-size:12px;color:#8e9ab0;margin-top:7px}
-main{padding:16px;max-width:650px;margin:auto}
+header{padding:22px;background:#111725;border-bottom:1px solid #293248}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}
+.gold{color:#ffb52e}
+.sub,.muted{color:#94a0b5;font-size:12px}
+main{max-width:700px;margin:auto;padding:15px}
 .card{background:#111725;border:1px solid #293248;border-radius:14px;padding:16px;margin-bottom:14px}
 h2{font-size:16px;margin:0 0 12px}
-.row{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.value{font-size:24px;font-weight:bold}
-.muted{color:#8e9ab0;font-size:12px}
-button{border:0;border-radius:9px;padding:12px 14px;font-weight:bold;cursor:pointer}
-.primary{background:#ffb52e;color:#15110a}
-.secondary{background:#253047;color:white}
-input{width:100%;padding:12px;background:#080b12;border:1px solid #344058;border-radius:8px;color:white;margin:10px 0}
-.status{color:#ffb52e;font-size:12px}
-.item{padding:12px 0;border-top:1px solid #293248}
-footer{text-align:center;color:#77849b;font-size:11px;padding:18px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+button{padding:12px;border:0;border-radius:8px;font-weight:bold;cursor:pointer}
+.primary{background:#ffb52e;color:#17120a}
+.secondary{background:#263147;color:white}
+input{width:100%;padding:12px;margin:10px 0;background:#080b12;color:white;border:1px solid #344058;border-radius:8px}
+.token{padding:13px 0;border-top:1px solid #293248}
+.signal{font-size:18px;font-weight:900;margin:8px 0}
+.buy{color:#77e6a3}.wait{color:#ffcb70}.avoid{color:#ff7777}
+.full{width:100%}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">FOX <span>SNIPER</span> AI</div>
-  <div class="sub">SOLANA TOKEN SCANNER · TEST MODE</div>
+ <div class="logo">FOX <span class="gold">SNIPER AI</span></div>
+ <p class="sub">SOLANA SCANNER · MANUAL APPROVAL · TEST MODE</p>
 </header>
 <main>
-  <div class="card">
-    <div class="row">
-      <div><div class="muted">MODE</div><b>Paper monitoring</b></div>
-      <div class="status" id="status">● NOT CONNECTED</div>
-    </div>
-    <p class="muted">Monitor new Pump.fun tokens without connecting a wallet.</p>
-    <button class="primary" onclick="connect()">CONNECT TOKEN FEED</button>
-    <button class="secondary" onclick="disconnect()">STOP</button>
+ <div class="card">
+  <div class="row">
+   <div><b>Live token feed</b><p class="muted">New Pump.fun tokens</p></div>
+   <span id="status" class="wait">● OFFLINE</span>
   </div>
-  <div class="card">
-    <div class="muted">VIRTUAL TEST BALANCE</div>
-    <div class="value">€20.00</div>
-    <div class="muted">Simulation only · No real funds</div>
-  </div>
-  <div class="card">
-    <h2>New token feed</h2>
-    <div class="muted">Newest tokens will appear here when the live feed connects.</div>
-    <div id="tokens"><div class="item muted">No tokens received yet.</div></div>
-  </div>
-  <div class="card">
-    <h2>Manual review</h2>
-    <p class="muted">Paste a token mint address to keep track of it. This does not buy the token or verify that it is safe.</p>
-    <input id="mint" placeholder="Solana token mint address">
-    <button class="primary" onclick="addMint()">ADD TO WATCHLIST</button>
-    <div id="watchlist"></div>
-  </div>
-  <div class="card">
-    <h2>Risk rules</h2>
-    <div class="muted">✓ No wallet connection</div>
-    <div class="muted">✓ No automatic purchases</div>
-    <div class="muted">✓ Review tokens before any decision</div>
-    <div class="muted">⚠ New tokens can lose almost all their value.</div>
-  </div>
+  <button class="primary full" onclick="startFeed()">START SCANNER</button>
+  <button class="secondary full" style="margin-top:8px" onclick="stopFeed()">STOP SCANNER</button>
+  <p class="muted">Open market data only. No wallet connected and no trades executed.</p>
+ </div>
+ <div class="card">
+  <div class="muted">PAPER BALANCE</div>
+  <div style="font-size:28px;font-weight:bold;margin:7px 0">€20.00</div>
+  <div class="muted">Virtual display only — not real funds.</div>
+ </div>
+ <div class="card">
+  <h2>Scanner results</h2>
+  <div id="feed" class="muted">Press START SCANNER to begin.</div>
+ </div>
+ <div class="card">
+  <h2>Check a token</h2>
+  <p class="muted">Paste a mint address to open its market page. This does not independently verify safety.</p>
+  <input id="mint" placeholder="Token mint address">
+  <button class="secondary full" onclick="openToken()">OPEN TOKEN PAGE</button>
+ </div>
+ <div class="card">
+  <h2>How signals work</h2>
+  <p class="muted"><b class="buy">BUY NOW</b> means a defined test filter passed; it is not a guarantee or an automatic order.</p>
+  <p class="muted"><b class="wait">WAIT</b> means more trade data is needed.</p>
+  <p class="muted"><b class="avoid">AVOID</b> means a defined risk filter was triggered.</p>
+  <p class="muted">This prototype does not yet calculate liquidity, holder concentration, wallet clusters, or verified rug-pull risk. It should not be used to spend real money.</p>
+ </div>
 </main>
-<footer>FOX SNIPER AI · Experimental prototype · Not financial advice</footer>
 <script>
-let socket=null;
-let seen=new Set();
-function connect(){
- if(socket && socket.readyState===WebSocket.OPEN)return;
+let ws=null, seen=new Set(), stats={};
+const el=id=>document.getElementById(id);
+function startFeed(){
+ if(ws && ws.readyState===WebSocket.OPEN)return;
+ el('status').textContent='● CONNECTING';
  try{
-  socket=new WebSocket('wss://pumpportal.fun/api/data');
-  socket.onopen=()=>{
-   document.getElementById('status').textContent='● FEED CONNECTED';
-   socket.send(JSON.stringify({method:'subscribeNewToken'}));
+  ws=new WebSocket('wss://pumpportal.fun/api/data');
+  ws.onopen=()=>{
+   el('status').textContent='● CONNECTED';
+   ws.send(JSON.stringify({method:'subscribeNewToken'}));
   };
-  socket.onmessage=e=>{
+  ws.onmessage=e=>{
    let d;
    try{d=JSON.parse(e.data)}catch{return}
-   const mint=d.mint||d.tokenAddress;
-   if(!mint||seen.has(mint))return;
-   seen.add(mint);
-   const div=document.createElement('div');
-   div.className='item';
-   const name=String(d.name||'Unknown token').slice(0,80);
-   const symbol=String(d.symbol||'').slice(0,20);
-   const link='https://pump.fun/coin/'+encodeURIComponent(mint);
-   div.innerHTML='<b></b><div class="muted"></div><div style="margin-top:8px"><button class="secondary">VIEW TOKEN</button></div>';
-   div.children[0].textContent=name+' ('+symbol+')';
-   div.children[1].textContent=mint;
-   div.querySelector('button').onclick=()=>window.open(link,'_blank');
-   const list=document.getElementById('tokens');
-   if(list.firstElementChild?.textContent.includes('No tokens'))list.innerHTML='';
-   list.prepend(div);
-   while(list.children.length>30)list.lastElementChild.remove();
+   if(!d.mint || seen.has(d.mint))return;
+   seen.add(d.mint);
+   stats[d.mint]={name:d.name||'Unknown',symbol:d.symbol||'',mint:d.mint,
+     trades:0,buy:0,sell:0,volume:0};
+   // Subscribe to this token's trade events for basic observation.
+   ws.send(JSON.stringify({method:'subscribeTokenTrade',keys:[d.mint]}));
+   render(stats[d.mint]);
   };
-  socket.onclose=()=>document.getElementById('status').textContent='● DISCONNECTED';
-  socket.onerror=()=>document.getElementById('status').textContent='● FEED ERROR';
- }catch(e){document.getElementById('status').textContent='● CONNECTION ERROR'}
+  ws.onerror=()=>el('status').textContent='● FEED ERROR';
+  ws.onclose=()=>el('status').textContent='● DISCONNECTED';
+ }catch(e){el('status').textContent='● ERROR'}
 }
-function disconnect(){
- if(socket)socket.close();
- socket=null;
- document.getElementById('status').textContent='● STOPPED';
-}
-function addMint(){
- const input=document.getElementById('mint');
- const mint=input.value.trim();
- if(!mint)return alert('Paste a token mint address first.');
+function stopFeed(){if(ws)ws.close();ws=null;el('status').textContent='● STOPPED'}
+function render(t){
  const div=document.createElement('div');
- div.className='item';
+ div.className='token';
+ div.id='t'+t.mint;
+ const title=document.createElement('b');
+ title.textContent=t.name+' ('+t.symbol+')';
+ const sig=document.createElement('div');
+ sig.className='signal wait';
+ sig.textContent='WAIT — collecting trade data';
+ const details=document.createElement('div');
+ details.className='muted';
+ details.textContent='Trades: 0 · Buys: 0 · Sells: 0';
  const link=document.createElement('a');
- link.href='https://pump.fun/coin/'+encodeURIComponent(mint);
- link.target='_blank';
- link.rel='noopener';
- link.textContent=mint;
+ link.href='https://pump.fun/coin/'+encodeURIComponent(t.mint);
+ link.target='_blank';link.rel='noopener';
+ link.textContent='View market';
  link.style.color='#ffb52e';
- div.appendChild(link);
- document.getElementById('watchlist').prepend(div);
- input.value='';
+ div.append(title,sig,details,document.createElement('br'),link);
+ div.dataset.mint=t.mint;
+ el('feed').prepend(div);
+ if(el('feed').children.length===1 && el('feed').textContent.includes('Press START'))el('feed').innerHTML='';
+ while(el('feed').children.length>30)el('feed').lastElementChild.remove();
+}
+function openToken(){
+ const m=el('mint').value.trim();
+ if(!m)return alert('Enter a token mint address first.');
+ location.href='https://pump.fun/coin/'+encodeURIComponent(m);
+}
+function updateTrade(d){
+ const mint=d.mint||d.token;
+ const t=stats[mint];
+ if(!t)return;
+ t.trades++;
+ const side=String(d.txType||d.side||'').toLowerCase();
+ if(side==='buy')t.buy++;
+ if(side==='sell')t.sell++;
+ t.volume+=Number(d.solAmount||0);
+ const div=document.getElementById('t'+mint);
+ if(!div)return;
+ const sig=div.querySelector('.signal');
+ const details=div.querySelector('.muted');
+ details.textContent='Trades: '+t.trades+' · Buys: '+t.buy+' · Sells: '+t.sell;
+ // Until a sufficient sample and risk data are available, never assert BUY NOW.
+ sig.className='signal wait';
+ sig.textContent=t.trades<20?'WAIT — insufficient trade sample':'WAIT — risk checks still missing';
 }
 </script>
 </body>
