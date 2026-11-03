@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="sq">
 <head>
@@ -7,40 +6,36 @@
 <meta name="theme-color" content="#080807">
 <title>BLEND THE DANGEROUS BOT</title>
 <style>
-:root{--bg:#080807;--panel:#11100e;--gold:#d7b46a;--bright:#f5d995;--muted:#a59a83;--line:#403522;--green:#72d6a0;--red:#f07878}
+:root{--bg:#080807;--panel:#12100d;--gold:#d7b46a;--bright:#f5d995;--muted:#a59a83;--line:#403522;--green:#72d6a0;--red:#f07878}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 15% 0%,#302517 0%,transparent 35%),radial-gradient(ellipse at 90% 45%,#201b12 0%,transparent 30%),repeating-linear-gradient(125deg,#0a0908 0px,#0a0908 35px,#0d0c0a 36px,#090807 38px);color:#eee5d1;font:14px Inter,Arial,sans-serif}
-header{padding:25px 16px;text-align:center;border-bottom:1px solid var(--line);background:linear-gradient(110deg,#080807dd,#21190ddd,#080807dd)}
-.brand{font-family:Georgia,serif;font-size:clamp(24px,5vw,40px);letter-spacing:2px;color:var(--bright);text-shadow:0 0 20px #c69d4844}
-.subtitle{font-size:10px;letter-spacing:3px;color:var(--muted);margin:10px 0 17px}
-button,input{font:inherit}
-button{border:1px solid var(--gold);border-radius:5px;padding:11px 15px;background:linear-gradient(135deg,#e5c57f,#a47a32);color:#16110a;font-weight:700;cursor:pointer}
+body{margin:0;background:radial-gradient(ellipse at 15% 0%,#302517 0%,transparent 35%),repeating-linear-gradient(125deg,#0a0908 0px,#0a0908 35px,#0d0c0a 36px,#090807 38px);color:#eee5d1;font:14px Arial,sans-serif}
+header{text-align:center;padding:26px 12px;border-bottom:1px solid var(--line);background:#100d0bdc}
+.brand{font:clamp(24px,5vw,40px) Georgia,serif;letter-spacing:2px;color:var(--bright)}
+.subtitle{font-size:10px;letter-spacing:3px;color:var(--muted);margin:12px}
+main{max-width:1150px;margin:auto;padding:14px}
+button{border:1px solid var(--gold);border-radius:5px;padding:11px 14px;background:linear-gradient(135deg,#e5c57f,#a47a32);color:#16110a;font-weight:bold;cursor:pointer}
 button.secondary{background:#17140f;color:var(--bright)}
 button:disabled{opacity:.45;cursor:not-allowed}
-main{max-width:1150px;margin:auto;padding:15px}
-.panel{background:linear-gradient(135deg,#15130ff2,#0b0a09f5);border:1px solid #403522;border-radius:9px;padding:16px;margin-bottom:14px;box-shadow:0 8px 30px #0005}
-.heading{color:var(--gold);font-size:11px;letter-spacing:2px;margin-bottom:14px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media(min-width:760px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.metric{border:1px solid #393020;background:#0b0a08;padding:14px;border-radius:6px;min-width:0}
-.metric small{color:var(--muted);display:block;font-size:10px;margin-bottom:11px;letter-spacing:1px}
-.metric strong{font-family:Georgia,serif;font-size:clamp(19px,4vw,27px);color:var(--bright);overflow-wrap:anywhere}
-.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-input{width:100%;padding:12px;background:#090807;border:1px solid #4a3a23;color:#f4dfaa;border-radius:5px}
-label{display:block;color:var(--muted);font-size:12px;flex:1;min-width:120px}
-label input{margin-top:7px}
-.status{color:var(--gold);font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.panel,.metric{background:linear-gradient(135deg,#15130ff2,#0b0a09f5);border:1px solid var(--line);border-radius:8px;padding:15px;margin-bottom:14px;min-width:0}
+.metric{margin:0;background:#0b0a08}
+.metric small{display:block;color:var(--muted);font-size:10px;margin-bottom:10px}
+.metric strong{font:clamp(18px,4vw,27px) Georgia,serif;color:var(--bright);overflow-wrap:anywhere}
+.heading{color:var(--gold);font-size:11px;letter-spacing:2px;margin-bottom:14px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+label{display:block;color:var(--muted);font-size:12px;flex:1;min-width:130px}
+input{display:block;width:100%;margin-top:7px;padding:12px;background:#090807;border:1px solid #4a3a23;color:#f4dfaa;border-radius:5px}
+.status{color:var(--gold);font-size:12px;line-height:1.8;overflow-wrap:anywhere;margin:10px 0}
 .tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:610px}
-th,td{text-align:left;padding:12px 9px;border-bottom:1px solid #302719;font-size:12px;white-space:nowrap}
-th{color:var(--muted);font-weight:500}
-td{color:#e8dfcc}
-.symbol{color:var(--bright);font-weight:700}
+table{border-collapse:collapse;width:100%;min-width:580px}
+th,td{text-align:left;padding:11px 8px;border-bottom:1px solid #302719;font-size:12px}
+th{color:var(--muted);font-weight:normal}
+.symbol{color:var(--bright);font-weight:bold}
 .small{font-size:10px;color:var(--muted);overflow-wrap:anywhere}
-.good{color:var(--green)!important}.bad{color:var(--red)!important}
-.log{max-height:130px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:#c3ad7c;font-size:11px;line-height:1.8}
-footer{text-align:center;color:#74664a;font-size:10px;padding:20px}
+.log{max-height:180px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:#c3ad7c;font-size:11px;line-height:1.8}
 a{color:var(--bright)}
+footer{text-align:center;color:#74664a;font-size:10px;padding:20px}
 </style>
 </head>
 <body>
@@ -56,7 +51,7 @@ a{color:var(--bright)}
   <div class="grid">
     <div class="metric"><small>WALLET BALANCE</small><strong id="solBalance">— SOL</strong></div>
     <div class="metric"><small>SOL MARKET PRICE</small><strong id="solPrice">$—</strong></div>
-    <div class="metric"><small>OPEN TOKEN HOLDINGS</small><strong id="holdings">—</strong></div>
+    <div class="metric"><small>TOKEN HOLDINGS</small><strong id="holdings">—</strong></div>
     <div class="metric"><small>WALLET STATUS</small><strong id="walletState">OFFLINE</strong></div>
   </div>
 
@@ -70,7 +65,7 @@ a{color:var(--bright)}
         <input id="slippage" type="number" min="0.1" max="5" step="0.1" value="1">
       </label>
     </div>
-    <p class="small">Mainnet · Transaksionet përdorin SOL real. Kontrolloje ofertën dhe wallet-in para çdo nënshkrimi.</p>
+    <p class="small">Mainnet · Përdor SOL real. Çdo transaksion duhet kontrolluar dhe miratuar në wallet.</p>
     <div class="row">
       <button id="refresh" class="secondary">REFRESH MARKET</button>
       <button id="loadHoldings" class="secondary">REFRESH HOLDINGS</button>
@@ -79,31 +74,27 @@ a{color:var(--bright)}
 
   <section class="panel">
     <div class="heading">02 / LIVE TOKEN DISCOVERY</div>
-    <div class="status" id="marketStatus">Duke lidhur të dhënat e tregut...</div>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>TOKEN</th><th>PRICE USD</th><th>LIQUIDITY</th><th>VOLUME 24H</th><th>CHART</th><th>EXECUTE</th></tr></thead>
-        <tbody id="market"><tr><td colspan="6">Loading market data...</td></tr></tbody>
-      </table>
-    </div>
+    <div class="status" id="marketStatus">Duke ngarkuar tregun...</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>TOKEN</th><th>PRICE USD</th><th>LIQUIDITY</th><th>VOLUME 24H</th><th>CHART</th><th>BUY</th></tr></thead>
+      <tbody id="market"><tr><td colspan="6">Loading...</td></tr></tbody>
+    </table></div>
   </section>
 
   <section class="panel">
     <div class="heading">03 / YOUR TOKEN HOLDINGS</div>
-    <div class="status" id="holdingStatus">Lidhe wallet-in për t'i lexuar tokenat e tu.</div>
-    <div class="tablewrap">
-      <table>
-        <thead><tr><th>TOKEN MINT</th><th>BALANCE</th><th>PRICE USD</th><th>VALUE USD</th><th>SELL</th></tr></thead>
-        <tbody id="tokenHoldings"><tr><td colspan="5">Wallet not connected.</td></tr></tbody>
-      </table>
-    </div>
+    <div class="status" id="holdingStatus">Lidhe wallet-in për me i lexu tokenat.</div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>TOKEN</th><th>BALANCE</th><th>PRICE USD</th><th>VALUE USD</th><th>SELL</th></tr></thead>
+      <tbody id="tokenHoldings"><tr><td colspan="5">Wallet not connected.</td></tr></tbody>
+    </table></div>
   </section>
 
   <section class="panel">
     <div class="heading">04 / TRANSACTION LOG</div>
-    <div class="log" id="log">Terminal initialized. Connect your wallet to continue.</div>
+    <div class="log" id="log">Terminal initialized. Connect your wallet.</div>
   </section>
-  <p class="small">Market data can be delayed. Token swaps can lose value or fail. The displayed token value is an estimate, not a guaranteed sell price.</p>
+  <p class="small">Çmimet dhe vlerat janë orientuese. Mund të humbësh një pjesë ose të gjithë shumën e tregtuar. Ky kod nuk garanton fitim.</p>
 </main>
 <footer>BLEND THE DANGEROUS BOT · BLACK MARBLE / GOLD EDITION</footer>
 
@@ -111,46 +102,61 @@ a{color:var(--bright)}
 import {VersionedTransaction} from
 'https://esm.sh/@solana/web3.js@1.98.4';
 
+/* Vendose Publishable API key këtu. Mos vendos kurrë seed phrase/private key. */
+const API_KEY='jup_pub_4914804bc0d5779a56106d2fd81cdacaa9e336735894a3a5593b4a79a957a8fc';
+
 const $=id=>document.getElementById(id);
 const SOL='So11111111111111111111111111111111111111112';
 const RPC='https://api.mainnet-beta.solana.com';
 const JUP='https://api.jup.ag/swap/v2';
 const DS='https://api.dexscreener.com';
-let provider=null, publicKey=null, solUsd=0;
-let tokens=new Map(), holdings=[];
-let busy=false;
+
+let provider=null,publicKey=null,solUsd=0,busy=false;
+let tokens=new Map(),holdings=[];
 
 function say(s){
   $('log').textContent='['+new Date().toLocaleTimeString()+'] '+s+'\n'+$('log').textContent;
-  $('log').textContent=$('log').textContent.slice(0,5000);
+  $('log').textContent=$('log').textContent.slice(0,6000);
 }
-function short(s){return s.slice(0,5)+'…'+s.slice(-4)}
-function money(n){return '$'+Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4})}
+function short(s){return s.length>12?s.slice(0,5)+'…'+s.slice(-4):s}
+function money(n){return '$'+Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:6})}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-async function json(url,options){
+
+async function json(url,options={}){
   const r=await fetch(url,options);
   const data=await r.json().catch(()=>({}));
-  if(!r.ok)throw Error(data.error||data.message||'HTTP '+r.status);
+  if(!r.ok)throw Error(data.errorMessage||data.error||data.message||('HTTP '+r.status));
   return data;
 }
+function headers(extra={}){
+  return {...extra,'x-api-key':API_KEY};
+}
 async function rpc(method,params){
-  return json(RPC,{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})});
+  const d=await json(RPC,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})
+  });
+  if(d.error)throw Error(d.error.message||'RPC error');
+  return d;
 }
 function findWallet(){
-  return window.phantom?.solana || window.solana || window.solflare || null;
+  if(window.phantom?.solana?.isPhantom)return window.phantom.solana;
+  if(window.solflare?.isSolflare)return window.solflare;
+  if(window.solana)return window.solana;
+  return null;
 }
 async function connect(){
   provider=findWallet();
-  if(!provider) {
-    say('Wallet provider not found. Open this site inside Phantom/Solflare browser or use a supported wallet browser.');
-    $('walletStatus').textContent='Open inside your wallet browser';
+  if(!provider){
+    say('Wallet provider not found. Hape faqen në browser-in e Phantom ose wallet tjetër të përkrahur.');
+    $('walletStatus').textContent='Open inside wallet browser';
     return;
   }
   try{
-    const result=await provider.connect();
-    publicKey=(result.publicKey||provider.publicKey)?.toString();
-    if(!publicKey)throw Error('Wallet did not return a public address.');
+    const r=await provider.connect();
+    publicKey=(r.publicKey||provider.publicKey)?.toString();
+    if(!publicKey)throw Error('Wallet nuk ktheu adresë.');
     $('connect').hidden=true;
     $('disconnect').hidden=false;
     $('walletStatus').textContent='CONNECTED · '+short(publicKey);
@@ -160,46 +166,15 @@ async function connect(){
   }catch(e){say('Connect failed: '+e.message)}
 }
 async function disconnect(){
-  try{if(provider?.disconnect)await provider.disconnect()}catch(_){}
+  try{await provider?.disconnect?.()}catch(_){}
   provider=null;publicKey=null;holdings=[];
   $('connect').hidden=false;$('disconnect').hidden=true;
   $('walletStatus').textContent='Wallet not connected';
   $('walletState').textContent='OFFLINE';
   $('solBalance').textContent='— SOL';$('holdings').textContent='—';
   $('tokenHoldings').innerHTML='<tr><td colspan="5">Wallet not connected.</td></tr>';
-  $('holdingStatus').textContent='Lidhe wallet-in për t’i lexuar tokenat.';
+  $('holdingStatus').textContent='Lidhe wallet-in për me i lexu tokenat.';
   say('Wallet disconnected.');
-}
-async function refreshWallet(){
-  if(!publicKey)return;
-  const b=await rpc('getBalance',[publicKey,{commitment:'confirmed'}]);
-  const sol=(b.result?.value||0)/1e9;
-  $('solBalance').textContent=sol.toFixed(4)+' SOL';
-  const a=await rpc('getTokenAccountsByOwner',[publicKey,
-    {programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},
-    {encoding:'jsonParsed',commitment:'confirmed'}]);
-  const raw=a.result?.value||[];
-  const sums=new Map();
-  for(const x of raw){
-    const i=x.account.data.parsed.info;
-    const mint=i.mint, amount=BigInt(i.tokenAmount.amount||'0');
-    if(amount===0n)continue;
-    const old=sums.get(mint);
-    sums.set(mint,{mint,amount:(old?old.amount:0n)+amount,
-      decimals:i.tokenAmount.decimals});
-  }
-  const rawHoldings=[...sums.values()];
-  holdings=[];
-  for(const h of rawHoldings){
-    let t=tokens.get(h.mint);
-    if(!t){
-      try{t=await fetchToken(h.mint)}catch(_){}
-    }
-    holdings.push({...h,token:t||{symbol:short(h.mint),name:'Unknown',price:0}});
-  }
-  $('holdings').textContent=String(holdings.length);
-  renderHoldings();
-  $('holdingStatus').textContent='Token balances read from Solana mainnet. Values depend on available market prices.';
 }
 async function fetchToken(mint){
   const d=await json(`${DS}/token-pairs/v1/solana/${encodeURIComponent(mint)}`);
@@ -207,17 +182,47 @@ async function fetchToken(mint){
   const pairs=d.filter(p=>p?.baseToken?.address&&Number(p.priceUsd)>0)
     .sort((a,b)=>Number(b.liquidity?.usd||0)-Number(a.liquidity?.usd||0));
   if(!pairs.length)return null;
-  const p=pairs[0],t={
-    mint:p.baseToken.address,name:p.baseToken.name||'Token',
-    symbol:p.baseToken.symbol||'TOKEN',price:Number(p.priceUsd),
-    liq:Number(p.liquidity?.usd||0),vol:Number(p.volume?.h24||0),
+  const p=pairs[0];
+  const t={
+    mint:p.baseToken.address,
+    name:p.baseToken.name||'Token',
+    symbol:p.baseToken.symbol||'TOKEN',
+    price:Number(p.priceUsd),
+    liq:Number(p.liquidity?.usd||0),
+    vol:Number(p.volume?.h24||0),
     url:p.url||''
   };
   tokens.set(mint,t);
   return t;
 }
+async function refreshWallet(){
+  if(!publicKey)return;
+  const b=await rpc('getBalance',[publicKey,{commitment:'confirmed'}]);
+  $('solBalance').textContent=((b.result?.value||0)/1e9).toFixed(4)+' SOL';
+
+  const a=await rpc('getTokenAccountsByOwner',[publicKey,
+    {programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},
+    {encoding:'jsonParsed',commitment:'confirmed'}]);
+  const sums=new Map();
+  for(const x of a.result?.value||[]){
+    const i=x.account.data.parsed.info;
+    const mint=i.mint,amount=BigInt(i.tokenAmount.amount||'0');
+    if(amount===0n)continue;
+    const old=sums.get(mint);
+    sums.set(mint,{mint,amount:(old?old.amount:0n)+amount,decimals:i.tokenAmount.decimals});
+  }
+  holdings=[];
+  for(const h of sums.values()){
+    let t=tokens.get(h.mint);
+    if(!t){try{t=await fetchToken(h.mint)}catch(_){}}
+    holdings.push({...h,token:t||{symbol:short(h.mint),price:0}});
+  }
+  $('holdings').textContent=String(holdings.length);
+  renderHoldings();
+  $('holdingStatus').textContent='Balancat u lexuan nga Solana. Vlera varet nga çmimi i disponueshëm.';
+}
 async function loadMarket(){
-  $('marketStatus').textContent='Refreshing live market data...';
+  $('marketStatus').textContent='Duke rifreskuar tregun...';
   try{
     const urls=[
       `${DS}/token-profiles/latest/v1`,
@@ -225,14 +230,13 @@ async function loadMarket(){
       `${DS}/token-boosts/top/v1`
     ];
     const results=await Promise.allSettled(urls.map(u=>json(u)));
-    const mints=new Set();
+    const mints=new Set([SOL]);
     for(const r of results){
       if(r.status!=='fulfilled')continue;
       for(const x of (Array.isArray(r.value)?r.value:[])){
         if(x.chainId==='solana'&&x.tokenAddress)mints.add(x.tokenAddress);
       }
     }
-    // Also try common Solana searches so the list isn't limited to profiles.
     for(const q of ['SOL','BONK','WIF','JUP']){
       try{
         const d=await json(`${DS}/latest/dex/search?q=${encodeURIComponent(q)}`);
@@ -241,70 +245,97 @@ async function loadMarket(){
         }
       }catch(_){}
     }
-    const list=[...mints].slice(0,35);
-    for(const mint of list){
+    for(const mint of [...mints].slice(0,35)){
       try{await fetchToken(mint)}catch(_){}
     }
     const sol=await fetchToken(SOL).catch(()=>null);
     if(sol)solUsd=sol.price;
     $('solPrice').textContent=solUsd?money(solUsd):'$—';
     renderMarket();
-    $('marketStatus').textContent=`${tokens.size} token prices loaded · ${new Date().toLocaleTimeString()}`;
-    say('Market refreshed: '+tokens.size+' token entries.');
+    $('marketStatus').textContent=`${tokens.size} token entries · ${new Date().toLocaleTimeString()}`;
+    say('Market refresh complete.');
   }catch(e){
-    $('marketStatus').textContent='Market data unavailable: '+e.message;
+    $('marketStatus').textContent='Market unavailable: '+e.message;
     say('Market error: '+e.message);
   }
 }
 function renderMarket(){
   const arr=[...tokens.values()].sort((a,b)=>b.liq-a.liq).slice(0,40);
   $('market').innerHTML=arr.length?arr.map(t=>`
-    <tr><td><span class="symbol">${esc(t.symbol)}</span><br><span class="small">${esc(short(t.mint))}</span></td>
-    <td>${money(t.price)}</td><td>${money(t.liq)}</td><td>${money(t.vol)}</td>
-    <td>${t.url?`<a href="${esc(t.url)}" target="_blank" rel="noopener">CHART ↗</a>`:'—'}</td>
-    <td><button data-buy="${esc(t.mint)}">BUY</button></td></tr>`).join('')
-    :'<tr><td colspan="6">No priced tokens returned by market API.</td></tr>';
+    <tr>
+      <td><span class="symbol">${esc(t.symbol)}</span><br><span class="small">${esc(short(t.mint))}</span></td>
+      <td>${money(t.price)}</td><td>${money(t.liq)}</td><td>${money(t.vol)}</td>
+      <td>${t.url?`<a href="${esc(t.url)}" target="_blank" rel="noopener">CHART ↗</a>`:'—'}</td>
+      <td><button data-buy="${esc(t.mint)}">BUY</button></td>
+    </tr>`).join('')
+    :'<tr><td colspan="6">No market tokens returned.</td></tr>';
 }
 function renderHoldings(){
   $('tokenHoldings').innerHTML=holdings.length?holdings.map(h=>{
     const qty=Number(h.amount)/10**h.decimals;
     const value=qty*(h.token.price||0);
-    return `<tr><td><span class="symbol">${esc(h.token.symbol||short(h.mint))}</span><br><span class="small">${esc(short(h.mint))}</span></td>
-    <td>${qty.toLocaleString('en-US',{maximumFractionDigits:6})}</td>
-    <td>${h.token.price?money(h.token.price):'N/A'}</td>
-    <td>${h.token.price?money(value):'N/A'}</td>
-    <td><button data-sell="${esc(h.mint)}" ${h.token.price?'':'disabled'}>SELL ALL</button></td></tr>`;
+    return `<tr>
+      <td><span class="symbol">${esc(h.token.symbol||short(h.mint))}</span><br><span class="small">${esc(short(h.mint))}</span></td>
+      <td>${qty.toLocaleString('en-US',{maximumFractionDigits:6})}</td>
+      <td>${h.token.price?money(h.token.price):'N/A'}</td>
+      <td>${h.token.price?money(value):'N/A'}</td>
+      <td><button data-sell="${esc(h.mint)}" ${h.token.price?'':'disabled'}>SELL ALL</button></td>
+    </tr>`;
   }).join(''):'<tr><td colspan="5">No token balances found.</td></tr>';
 }
 async function swap(inputMint,outputMint,amount){
   if(!publicKey||!provider)throw Error('Connect wallet first.');
-  if(busy)throw Error('Another transaction is in progress.');
-  if(!Number.isFinite(amount)||amount<=0)throw Error('Invalid swap amount.');
+  if(busy)throw Error('A transaction is already in progress.');
+  if(API_KEY==='PASTE_PUBLISHABLE_KEY_HERE')throw Error('Vendose Publishable API key te konstanta API_KEY në kod.');
+  if(!/^\d+$/.test(String(amount))||BigInt(amount)<=0n)throw Error('Invalid token amount.');
+
   busy=true;
   try{
+    const slippage=Number($('slippage').value);
+    if(!Number.isFinite(slippage)||slippage<0.1||slippage>5)
+      throw Error('Slippage duhet të jetë mes 0.1% dhe 5%.');
+
     const params=new URLSearchParams({
-      inputMint,outputMint,amount:String(amount),taker:publicKey
+      inputMint,outputMint,amount:String(amount),
+      taker:publicKey,
+      slippageBps:String(Math.round(slippage*100))
     });
-    const order=await json(`${JUP}/order?${params}`);
-    if(!order.transaction)throw Error(order.errorMessage||'No executable swap route returned.');
+
+    const order=await json(`${JUP}/order?${params}`,{
+      headers:headers()
+    });
+    if(!order.transaction){
+      throw Error(order.errorMessage||'Jupiter nuk ktheu transaksion të gatshëm.');
+    }
+    if(!order.requestId)throw Error('Mungon requestId nga Jupiter.');
+
+    say(`Order received · router: ${order.router||'unknown'} · reviewing wallet approval.`);
     const raw=Uint8Array.from(atob(order.transaction),c=>c.charCodeAt(0));
     const tx=VersionedTransaction.deserialize(raw);
-    // The wallet must explicitly approve each real transaction.
+
+    // Wallet-i e nënshkruan transaksionin. Nuk kërkohet seed phrase.
     const signed=await provider.signTransaction(tx);
     const bytes=signed.serialize();
     let binary='';
     for(let i=0;i<bytes.length;i+=0x8000)
       binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
-    const signedBase64=btoa(binary);
+
     const result=await json(`${JUP}/execute`,{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({signedTransaction:signedBase64,requestId:order.requestId})
+      headers:headers({'Content-Type':'application/json'}),
+      body:JSON.stringify({
+        signedTransaction:btoa(binary),
+        requestId:order.requestId
+      })
     });
-    if(result.status!=='Success')throw Error(result.error||'Swap execution failed.');
-    say('Swap confirmed: '+result.signature);
+
+    if(result.status!=='Success'){
+      throw Error(result.error||'Jupiter reported that the swap failed.');
+    }
+    say('Swap successful · '+result.signature);
     say('Explorer: https://solscan.io/tx/'+result.signature);
-    alert('Swap result: '+result.status+'\nSignature: '+result.signature);
+    alert('Swap successful!\nSignature: '+result.signature+
+      '\n\nKontrolloje transaksionin në Solscan.');
     await refreshWallet();
     await loadMarket();
     return result;
@@ -313,30 +344,26 @@ async function swap(inputMint,outputMint,amount){
 async function buy(mint){
   if(!publicKey){say('Connect wallet before buying.');return}
   const amount=Number($('buyAmount').value);
-  if(!Number.isFinite(amount)||amount<=0){say('Enter a valid SOL amount.');return}
-  const slippage=Number($('slippage').value);
-  if(!Number.isFinite(slippage)||slippage<0.1||slippage>5){
-    say('Slippage must be between 0.1% and 5%.');return;
-  }
-  if(!confirm(`BUY TOKEN\nMint: ${mint}\nSpend: ${amount} SOL\n\nNext, review and approve the transaction in your wallet.`))return;
-  try{
-    // Jupiter applies its own RTSE unless a specific slippage is requested.
-    await swap(SOL,mint,Math.round(amount*1e9));
-  }catch(e){say('BUY cancelled/failed: '+e.message)}
+  if(!Number.isFinite(amount)||amount<0.001){say('Shuma minimale e vendosur është 0.001 SOL.');return}
+  const lamports=Math.round(amount*1e9);
+  if(!confirm(`BUY TOKEN\nMint: ${mint}\nShuma: ${amount} SOL\n\nMiratoje vetëm nëse detajet e wallet-it janë të sakta.`))return;
+  try{await swap(SOL,mint,String(lamports))}
+  catch(e){say('BUY failed/cancelled: '+e.message);alert('BUY failed/cancelled:\n'+e.message)}
 }
 async function sell(mint){
   if(!publicKey){say('Connect wallet first.');return}
   const h=holdings.find(x=>x.mint===mint);
   if(!h){say('Token balance not found. Refresh holdings.');return}
-  if(!confirm(`SELL ALL TOKEN\nMint: ${mint}\nRaw amount: ${h.amount.toString()}\n\nReview the transaction in your wallet.`))return;
+  if(!confirm(`SELL ALL TOKEN?\nMint: ${mint}\nSasia e papërpunuar: ${h.amount}\n\nKontrolloje ofertën dhe miratoje në wallet.`))return;
   try{await swap(mint,SOL,h.amount.toString())}
-  catch(e){say('SELL cancelled/failed: '+e.message)}
+  catch(e){say('SELL failed/cancelled: '+e.message);alert('SELL failed/cancelled:\n'+e.message)}
 }
+
 $('connect').addEventListener('click',connect);
 $('disconnect').addEventListener('click',disconnect);
 $('refresh').addEventListener('click',loadMarket);
 $('loadHoldings').addEventListener('click',async()=>{
-  try{await refreshWallet()}catch(e){say('Wallet refresh error: '+e.message)}
+  try{await refreshWallet()}catch(e){say('Holdings error: '+e.message)}
 });
 $('market').addEventListener('click',e=>{
   const b=e.target.closest('[data-buy]');
@@ -346,14 +373,32 @@ $('tokenHoldings').addEventListener('click',e=>{
   const b=e.target.closest('[data-sell]');
   if(b)sell(b.dataset.sell);
 });
-if(provider?.on){
-  provider.on('disconnect',disconnect);
+
+function attachWalletEvents(){
+  provider=findWallet();
+  if(provider?.on){
+    provider.on('disconnect',()=>{
+      publicKey=null;
+      $('connect').hidden=false;$('disconnect').hidden=true;
+      $('walletStatus').textContent='Wallet not connected';
+      $('walletState').textContent='OFFLINE';
+      $('solBalance').textContent='— SOL';
+      $('holdings').textContent='—';
+      say('Wallet disconnected by provider.');
+    });
+    provider.on('accountChanged',key=>{
+      if(key){
+        publicKey=key.toString();
+        $('walletStatus').textContent='CONNECTED · '+short(publicKey);
+        refreshWallet().catch(e=>say(e.message));
+      }else disconnect();
+    });
+  }
 }
-await loadMarket();
-setInterval(loadMarket,45000);
-setInterval(async()=>{
-  if(publicKey)try{await refreshWallet()}catch(e){say('Balance refresh error: '+e.message)}
-},20000);
+attachWalletEvents();
+loadMarket();
+setInterval(()=>loadMarket().catch(e=>say(e.message)),60000);
+setInterval(()=>{if(publicKey)refreshWallet().catch(e=>say(e.message))},30000);
 </script>
 </body>
 </html>
