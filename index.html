@@ -1,404 +1,285 @@
+
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080807">
-<title>BLEND THE DANGEROUS BOT</title>
+<title>BLEND THE DANGEROUS | AI Analyst</title>
 <style>
-:root{--bg:#080807;--panel:#12100d;--gold:#d7b46a;--bright:#f5d995;--muted:#a59a83;--line:#403522;--green:#72d6a0;--red:#f07878}
+:root{--bg:#080807;--panel:#11110f;--gold:#d8b45b;--muted:#929087;--green:#69e6a2;--red:#ff7474}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 15% 0%,#302517 0%,transparent 35%),repeating-linear-gradient(125deg,#0a0908 0px,#0a0908 35px,#0d0c0a 36px,#090807 38px);color:#eee5d1;font:14px Arial,sans-serif}
-header{text-align:center;padding:26px 12px;border-bottom:1px solid var(--line);background:#100d0bdc}
-.brand{font:clamp(24px,5vw,40px) Georgia,serif;letter-spacing:2px;color:var(--bright)}
-.subtitle{font-size:10px;letter-spacing:3px;color:var(--muted);margin:12px}
-main{max-width:1150px;margin:auto;padding:14px}
-button{border:1px solid var(--gold);border-radius:5px;padding:11px 14px;background:linear-gradient(135deg,#e5c57f,#a47a32);color:#16110a;font-weight:bold;cursor:pointer}
-button.secondary{background:#17140f;color:var(--bright)}
-button:disabled{opacity:.45;cursor:not-allowed}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media(min-width:760px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.panel,.metric{background:linear-gradient(135deg,#15130ff2,#0b0a09f5);border:1px solid var(--line);border-radius:8px;padding:15px;margin-bottom:14px;min-width:0}
-.metric{margin:0;background:#0b0a08}
-.metric small{display:block;color:var(--muted);font-size:10px;margin-bottom:10px}
-.metric strong{font:clamp(18px,4vw,27px) Georgia,serif;color:var(--bright);overflow-wrap:anywhere}
-.heading{color:var(--gold);font-size:11px;letter-spacing:2px;margin-bottom:14px}
-.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
-label{display:block;color:var(--muted);font-size:12px;flex:1;min-width:130px}
-input{display:block;width:100%;margin-top:7px;padding:12px;background:#090807;border:1px solid #4a3a23;color:#f4dfaa;border-radius:5px}
-.status{color:var(--gold);font-size:12px;line-height:1.8;overflow-wrap:anywhere;margin:10px 0}
-.tablewrap{overflow-x:auto}
-table{border-collapse:collapse;width:100%;min-width:580px}
-th,td{text-align:left;padding:11px 8px;border-bottom:1px solid #302719;font-size:12px}
-th{color:var(--muted);font-weight:normal}
-.symbol{color:var(--bright);font-weight:bold}
-.small{font-size:10px;color:var(--muted);overflow-wrap:anywhere}
-.log{max-height:180px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:#c3ad7c;font-size:11px;line-height:1.8}
-a{color:var(--bright)}
-footer{text-align:center;color:#74664a;font-size:10px;padding:20px}
+body{margin:0;background:radial-gradient(ellipse at top,#252013 0%,#080807 50%);color:#f5f0df;font-family:Arial,sans-serif}
+header{padding:24px 17px 16px;border-bottom:1px solid #40351b}
+.brand{color:var(--gold);font-size:11px;letter-spacing:4px;font-weight:bold}
+h1{font-size:26px;margin:10px 0 5px;letter-spacing:1px}
+.sub{font-size:12px;color:var(--muted);line-height:1.6}
+main{padding:15px;max-width:900px;margin:auto}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat,.card,.toolbar{background:linear-gradient(145deg,#171712,#0c0c0a);border:1px solid #353020;border-radius:12px}
+.stat{padding:12px 9px}.stat small{color:var(--muted);font-size:10px;display:block}
+.stat strong{display:block;font-size:20px;color:var(--gold);margin-top:7px}
+.toolbar{padding:13px;margin-bottom:13px}
+button,select{background:#17150e;color:#f5f0df;border:1px solid #79612b;border-radius:8px;padding:11px;font-size:12px}
+button{cursor:pointer;font-weight:bold}
+.primary{background:linear-gradient(110deg,#b58a2d,#f1d78a);color:#100e08;border:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row select{flex:1;min-width:130px}
+#status{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
+.notice{font-size:11px;color:#b8b1a0;line-height:1.6;margin:12px 2px}
+.card{padding:14px;margin-bottom:11px}
+.top{display:flex;gap:10px;align-items:center}
+.avatar{width:42px;height:42px;border-radius:10px;object-fit:cover;background:#242117}
+.name{font-weight:bold;font-size:15px;overflow-wrap:anywhere}
+.symbol{font-size:11px;color:var(--gold);margin-top:4px}
+.score{margin-left:auto;text-align:right;min-width:66px}
+.score b{font-size:21px;color:var(--gold)}
+.score small{display:block;color:var(--muted);font-size:10px}
+.badge{display:inline-block;padding:6px 9px;border-radius:5px;font-size:10px;font-weight:bold;letter-spacing:.5px;margin-top:12px}
+.buy{background:#123625;color:var(--green);border:1px solid #246b48}
+.watch{background:#302812;color:#f1d78a;border:1px solid #665020}
+.avoid{background:#351b1b;color:#ff9999;border:1px solid #703030}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.metric small{font-size:10px;color:var(--muted);display:block}
+.metric b{font-size:13px;display:block;margin-top:4px;overflow-wrap:anywhere}
+.positive{color:var(--green)}.negative{color:var(--red)}
+.reasons{font-size:11px;line-height:1.7;color:#c6c0ae;margin:8px 0}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.links a{color:var(--gold);border:1px solid #514222;padding:9px;border-radius:7px;text-decoration:none;font-size:11px}
+#cards{margin-top:12px}
+footer{text-align:center;color:#666156;font-size:10px;padding:24px}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">BLEND THE DANGEROUS</div>
-  <div class="subtitle">PRIVATE WEALTH TERMINAL · SOLANA</div>
-  <button id="connect">CONNECT WALLET</button>
-  <button id="disconnect" class="secondary" hidden>DISCONNECT</button>
-  <div class="status" id="walletStatus">Wallet not connected</div>
+ <div class="brand">B.T.D. // SOLANA INTELLIGENCE</div>
+ <h1>BLEND THE DANGEROUS</h1>
+ <div class="sub">PUMP.FUN TOKEN ANALYST · LIVE MARKET SCANNER</div>
 </header>
-
 <main>
-  <div class="grid">
-    <div class="metric"><small>WALLET BALANCE</small><strong id="solBalance">— SOL</strong></div>
-    <div class="metric"><small>SOL MARKET PRICE</small><strong id="solPrice">$—</strong></div>
-    <div class="metric"><small>TOKEN HOLDINGS</small><strong id="holdings">—</strong></div>
-    <div class="metric"><small>WALLET STATUS</small><strong id="walletState">OFFLINE</strong></div>
+ <div class="stats">
+  <div class="stat"><small>TOKENS CHECKED</small><strong id="checked">0</strong></div>
+  <div class="stat"><small>BUY CANDIDATES</small><strong id="buys">0</strong></div>
+  <div class="stat"><small>LAST SCAN</small><strong id="last" style="font-size:14px">--:--</strong></div>
+ </div>
+
+ <div class="toolbar">
+  <div class="row">
+   <select id="minliq">
+    <option value="3000">Min liquidity: $3K</option>
+    <option value="5000" selected>Min liquidity: $5K</option>
+    <option value="10000">Min liquidity: $10K</option>
+    <option value="20000">Min liquidity: $20K</option>
+   </select>
+   <select id="minscore">
+    <option value="60">Signal threshold: 60</option>
+    <option value="70" selected>Signal threshold: 70</option>
+    <option value="80">Signal threshold: 80</option>
+    <option value="90">Signal threshold: 90</option>
+   </select>
+   <button class="primary" id="scan">SCAN NOW</button>
   </div>
+  <div id="status">Waiting to start first scan…</div>
+ </div>
 
-  <section class="panel" style="margin-top:14px">
-    <div class="heading">01 / EXECUTION SETTINGS</div>
-    <div class="grid">
-      <label>BUY AMOUNT (SOL)
-        <input id="buyAmount" type="number" min="0.001" step="0.001" value="0.01">
-      </label>
-      <label>SLIPPAGE LIMIT (%)
-        <input id="slippage" type="number" min="0.1" max="5" step="0.1" value="1">
-      </label>
-    </div>
-    <p class="small">Mainnet · Përdor SOL real. Çdo transaksion duhet kontrolluar dhe miratuar në wallet.</p>
-    <div class="row">
-      <button id="refresh" class="secondary">REFRESH MARKET</button>
-      <button id="loadHoldings" class="secondary">REFRESH HOLDINGS</button>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="heading">02 / LIVE TOKEN DISCOVERY</div>
-    <div class="status" id="marketStatus">Duke ngarkuar tregun...</div>
-    <div class="tablewrap"><table>
-      <thead><tr><th>TOKEN</th><th>PRICE USD</th><th>LIQUIDITY</th><th>VOLUME 24H</th><th>CHART</th><th>BUY</th></tr></thead>
-      <tbody id="market"><tr><td colspan="6">Loading...</td></tr></tbody>
-    </table></div>
-  </section>
-
-  <section class="panel">
-    <div class="heading">03 / YOUR TOKEN HOLDINGS</div>
-    <div class="status" id="holdingStatus">Lidhe wallet-in për me i lexu tokenat.</div>
-    <div class="tablewrap"><table>
-      <thead><tr><th>TOKEN</th><th>BALANCE</th><th>PRICE USD</th><th>VALUE USD</th><th>SELL</th></tr></thead>
-      <tbody id="tokenHoldings"><tr><td colspan="5">Wallet not connected.</td></tr></tbody>
-    </table></div>
-  </section>
-
-  <section class="panel">
-    <div class="heading">04 / TRANSACTION LOG</div>
-    <div class="log" id="log">Terminal initialized. Connect your wallet.</div>
-  </section>
-  <p class="small">Çmimet dhe vlerat janë orientuese. Mund të humbësh një pjesë ose të gjithë shumën e tregtuar. Ky kod nuk garanton fitim.</p>
+ <div class="notice">
+  <b style="color:#e4c779">SIGNAL RULE:</b> score is based on liquidity, trading activity,
+  buy/sell balance, momentum and token age. A high score is a candidate, not a guarantee.
+  Tokens without enough reliable data are not marked BUY NOW.
+ </div>
+ <div id="cards"></div>
 </main>
-<footer>BLEND THE DANGEROUS BOT · BLACK MARBLE / GOLD EDITION</footer>
+<footer>BLEND THE DANGEROUS · DATA BY DEXSCREENER · SIGNALS ARE NOT FINANCIAL ADVICE</footer>
 
-<script type="module">
-import {VersionedTransaction} from
-'https://esm.sh/@solana/web3.js@1.98.4';
-
-/* Vendose Publishable API key këtu. Mos vendos kurrë seed phrase/private key. */
-const API_KEY='jup_pub_4914804bc0d5779a56106d2fd81cdacaa9e336735894a3a5593b4a79a957a8fc';
-
+<script>
+const API="https://api.dexscreener.com";
 const $=id=>document.getElementById(id);
-const SOL='So11111111111111111111111111111111111111112';
-const RPC='https://api.mainnet-beta.solana.com';
-const JUP='https://api.jup.ag/swap/v2';
-const DS='https://api.dexscreener.com';
+let busy=false, seen=new Set();
 
-let provider=null,publicKey=null,solUsd=0,busy=false;
-let tokens=new Map(),holdings=[];
+function money(n){
+ if(!Number.isFinite(n))return "N/A";
+ if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
+ if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";
+ return "$"+n.toFixed(n<1?4:2);
+}
+function pct(n){
+ if(!Number.isFinite(n))return "N/A";
+ return (n>0?"+":"")+n.toFixed(1)+"%";
+}
+function esc(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function pumpLink(address){
+ return "https://pump.fun/coin/"+encodeURIComponent(address);
+}
+async function getJson(url){
+ const r=await fetch(url,{cache:"no-store"});
+ if(!r.ok)throw new Error("HTTP "+r.status);
+ return r.json();
+}
 
-function say(s){
-  $('log').textContent='['+new Date().toLocaleTimeString()+'] '+s+'\n'+$('log').textContent;
-  $('log').textContent=$('log').textContent.slice(0,6000);
-}
-function short(s){return s.length>12?s.slice(0,5)+'…'+s.slice(-4):s}
-function money(n){return '$'+Number(n||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:6})}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function analyze(p){
+ const liq=Number(p.liquidity?.usd)||0;
+ const vol=Number(p.volume?.h1)||0;
+ const tx=p.txns?.h1||{};
+ const buys=Number(tx.buys)||0;
+ const sells=Number(tx.sells)||0;
+ const total=buys+sells;
+ const change=Number(p.priceChange?.m5)||0;
+ const changeH1=Number(p.priceChange?.h1)||0;
+ const cap=Number(p.marketCap||p.fdv)||0;
+ const age=p.pairCreatedAt?Math.max(0,(Date.now()-p.pairCreatedAt)/60000):null;
+ let score=0,why=[];
 
-async function json(url,options={}){
-  const r=await fetch(url,options);
-  const data=await r.json().catch(()=>({}));
-  if(!r.ok)throw Error(data.errorMessage||data.error||data.message||('HTTP '+r.status));
-  return data;
+ // Liquidity: more depth generally means less slippage.
+ if(liq>=20000){score+=25;why.push("Strong liquidity")}
+ else if(liq>=10000){score+=21;why.push("Good liquidity")}
+ else if(liq>=5000){score+=16;why.push("Usable liquidity")}
+ else if(liq>=3000){score+=9;why.push("Thin liquidity")}
+
+ // Real activity.
+ if(vol>=50000){score+=20;why.push("High hourly volume")}
+ else if(vol>=15000){score+=16;why.push("Good hourly volume")}
+ else if(vol>=5000){score+=11;why.push("Some trading volume")}
+ else if(vol>=1000){score+=5;why.push("Low trading volume")}
+
+ // Buy/sell balance. Transaction counts are only a rough proxy.
+ if(total>=30){
+   const ratio=buys/Math.max(1,sells);
+   if(ratio>=1.8){score+=18;why.push("Buy transactions dominate")}
+   else if(ratio>=1.2){score+=12;why.push("Buy-side advantage")}
+   else if(ratio>=0.9){score+=5;why.push("Mixed buy/sell activity")}
+   else {score-=8;why.push("Sell transactions dominate")}
+ }else{
+   why.push("Few hourly transactions")
+ }
+
+ // Momentum, with a penalty for extreme short-term spikes.
+ if(change>0.5&&change<=15){score+=12;why.push("Positive 5m momentum")}
+ else if(change>15&&change<=30){score+=6;why.push("Fast move: chase risk")}
+ else if(change>30){score-=8;why.push("Possible price spike")}
+ else if(change<-5){score-=10;why.push("Negative short-term momentum")}
+
+ if(changeH1>0&&changeH1<80){score+=8;why.push("Positive 1h trend")}
+ else if(changeH1>=80){score-=6;why.push("Large hourly pump risk")}
+ else if(changeH1<-10){score-=8;why.push("Negative hourly trend")}
+
+ if(age!==null){
+   if(age>=10&&age<=180){score+=8;why.push("Early market history")}
+   else if(age<10){score-=8;why.push("Very new: limited evidence")}
+   else if(age>1440){score-=3;why.push("Older pair")}
+ }
+ if(cap>0&&cap<500000){score+=4;why.push("Small-cap profile")}
+ score=Math.max(0,Math.min(100,score));
+
+ const minLiq=Number($("minliq").value);
+ const threshold=Number($("minscore").value);
+ const eligible=liq>=minLiq&&vol>=1000&&total>=10&&age!==null&&age>=5;
+ const signal=eligible&&score>=threshold?"BUY NOW 🔥":
+   score>=45?"WATCH 👀":"AVOID / WAIT";
+
+ return {score,signal,why,liq,vol,buys,sells,change,changeH1,cap,age,eligible};
 }
-function headers(extra={}){
-  return {...extra,'x-api-key':API_KEY};
+
+function render(p,a){
+ const token=p.baseToken||{};
+ const addr=token.address||"";
+ const name=esc(token.name||"Unknown token");
+ const sym=esc(token.symbol||"???");
+ const url=p.url||"https://dexscreener.com/solana/"+encodeURIComponent(addr);
+ const status=a.signal.startsWith("BUY")?"buy":
+   a.signal.startsWith("WATCH")?"watch":"avoid";
+ const img=p.info?.imageUrl||"";
+ const card=document.createElement("article");
+ card.className="card";
+ card.innerHTML=`
+  <div class="top">
+   ${img?`<img class="avatar" src="${esc(img)}" alt="" loading="lazy" onerror="this.style.display='none'">`:
+   `<div class="avatar"></div>`}
+   <div style="min-width:0;flex:1">
+    <div class="name">${name}</div>
+    <div class="symbol">$${sym} · SOLANA</div>
+   </div>
+   <div class="score"><b>${a.score}</b><small> / 100 SCORE</small></div>
+  </div>
+  <div class="badge ${status}">${a.signal}</div>
+  <div class="metrics">
+   <div class="metric"><small>LIQUIDITY</small><b>${money(a.liq)}</b></div>
+   <div class="metric"><small>VOLUME 1H</small><b>${money(a.vol)}</b></div>
+   <div class="metric"><small>MARKET CAP</small><b>${money(a.cap)}</b></div>
+   <div class="metric"><small>PRICE CHANGE 5M</small><b class="${a.change>=0?'positive':'negative'}">${pct(a.change)}</b></div>
+   <div class="metric"><small>BUY / SELL TX 1H</small><b>${a.buys} / ${a.sells}</b></div>
+   <div class="metric"><small>PAIR AGE</small><b>${a.age===null?'N/A':a.age<60?Math.round(a.age)+' min':(a.age/60).toFixed(1)+' h'}</b></div>
+  </div>
+  <div class="reasons">${a.why.map(esc).join(" · ")}</div>
+  <div class="links">
+   <a href="${esc(pumpLink(addr))}" target="_blank" rel="noopener">OPEN ON PUMP.FUN ↗</a>
+   <a href="${esc(url)}" target="_blank" rel="noopener">DEXSCREENER DATA ↗</a>
+   <button class="copy">COPY TOKEN ADDRESS</button>
+  </div>`;
+ card.querySelector(".copy").onclick=async()=>{
+  try{await navigator.clipboard.writeText(addr);$("status").textContent="Token address copied."}
+  catch{$("status").textContent="Copy unavailable. Open token on Pump.fun to view address."}
+ };
+ return card;
 }
-async function rpc(method,params){
-  const d=await json(RPC,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})
-  });
-  if(d.error)throw Error(d.error.message||'RPC error');
-  return d;
-}
-function findWallet(){
-  if(window.phantom?.solana?.isPhantom)return window.phantom.solana;
-  if(window.solflare?.isSolflare)return window.solflare;
-  if(window.solana)return window.solana;
-  return null;
-}
-async function connect(){
-  provider=findWallet();
-  if(!provider){
-    say('Wallet provider not found. Hape faqen në browser-in e Phantom ose wallet tjetër të përkrahur.');
-    $('walletStatus').textContent='Open inside wallet browser';
-    return;
+
+async function scan(){
+ if(busy)return;
+ busy=true;
+ $("scan").disabled=true;
+ $("scan").textContent="SCANNING…";
+ $("status").textContent="Loading latest Solana token profiles…";
+ try{
+  const profiles=await getJson(API+"/token-profiles/latest/v1");
+  const candidates=(Array.isArray(profiles)?profiles:[])
+    .filter(x=>x.chainId==="solana"&&x.tokenAddress)
+    .slice(0,18);
+  $("status").textContent="Checking market data for "+candidates.length+" tokens…";
+
+  const results=await Promise.allSettled(candidates.map(async item=>{
+    const data=await getJson(API+"/token-pairs/v1/solana/"+encodeURIComponent(item.tokenAddress));
+    const pairs=(Array.isArray(data)?data:[])
+      .filter(p=>p.chainId==="solana"&&p.baseToken?.address?.toLowerCase()===item.tokenAddress.toLowerCase());
+    if(!pairs.length)return null;
+    pairs.sort((a,b)=>(Number(b.liquidity?.usd)||0)-(Number(a.liquidity?.usd)||0));
+    return pairs[0];
+  }));
+
+  const pairs=results.filter(r=>r.status==="fulfilled"&&r.value)
+    .map(r=>r.value);
+  const analyzed=pairs.map(p=>({p,a:analyze(p)}))
+    .sort((x,y)=>y.a.score-x.a.score);
+  const unique=[];
+  const used=new Set();
+  for(const item of analyzed){
+    const address=item.p.baseToken.address;
+    if(!used.has(address)){unique.push(item);used.add(address)}
   }
-  try{
-    const r=await provider.connect();
-    publicKey=(r.publicKey||provider.publicKey)?.toString();
-    if(!publicKey)throw Error('Wallet nuk ktheu adresë.');
-    $('connect').hidden=true;
-    $('disconnect').hidden=false;
-    $('walletStatus').textContent='CONNECTED · '+short(publicKey);
-    $('walletState').textContent='ONLINE';
-    say('Wallet connected: '+publicKey);
-    await refreshWallet();
-  }catch(e){say('Connect failed: '+e.message)}
-}
-async function disconnect(){
-  try{await provider?.disconnect?.()}catch(_){}
-  provider=null;publicKey=null;holdings=[];
-  $('connect').hidden=false;$('disconnect').hidden=true;
-  $('walletStatus').textContent='Wallet not connected';
-  $('walletState').textContent='OFFLINE';
-  $('solBalance').textContent='— SOL';$('holdings').textContent='—';
-  $('tokenHoldings').innerHTML='<tr><td colspan="5">Wallet not connected.</td></tr>';
-  $('holdingStatus').textContent='Lidhe wallet-in për me i lexu tokenat.';
-  say('Wallet disconnected.');
-}
-async function fetchToken(mint){
-  const d=await json(`${DS}/token-pairs/v1/solana/${encodeURIComponent(mint)}`);
-  if(!Array.isArray(d))return null;
-  const pairs=d.filter(p=>p?.baseToken?.address&&Number(p.priceUsd)>0)
-    .sort((a,b)=>Number(b.liquidity?.usd||0)-Number(a.liquidity?.usd||0));
-  if(!pairs.length)return null;
-  const p=pairs[0];
-  const t={
-    mint:p.baseToken.address,
-    name:p.baseToken.name||'Token',
-    symbol:p.baseToken.symbol||'TOKEN',
-    price:Number(p.priceUsd),
-    liq:Number(p.liquidity?.usd||0),
-    vol:Number(p.volume?.h24||0),
-    url:p.url||''
-  };
-  tokens.set(mint,t);
-  return t;
-}
-async function refreshWallet(){
-  if(!publicKey)return;
-  const b=await rpc('getBalance',[publicKey,{commitment:'confirmed'}]);
-  $('solBalance').textContent=((b.result?.value||0)/1e9).toFixed(4)+' SOL';
-
-  const a=await rpc('getTokenAccountsByOwner',[publicKey,
-    {programId:'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'},
-    {encoding:'jsonParsed',commitment:'confirmed'}]);
-  const sums=new Map();
-  for(const x of a.result?.value||[]){
-    const i=x.account.data.parsed.info;
-    const mint=i.mint,amount=BigInt(i.tokenAmount.amount||'0');
-    if(amount===0n)continue;
-    const old=sums.get(mint);
-    sums.set(mint,{mint,amount:(old?old.amount:0n)+amount,decimals:i.tokenAmount.decimals});
+  $("checked").textContent=unique.length;
+  $("buys").textContent=unique.filter(x=>x.a.signal.startsWith("BUY")).length;
+  $("last").textContent=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  $("cards").replaceChildren();
+  if(!unique.length){
+    $("cards").innerHTML='<div class="card">No usable market pairs returned. Try again shortly.</div>';
+  }else{
+    unique.forEach(({p,a})=>$("cards").appendChild(render(p,a)));
   }
-  holdings=[];
-  for(const h of sums.values()){
-    let t=tokens.get(h.mint);
-    if(!t){try{t=await fetchToken(h.mint)}catch(_){}}
-    holdings.push({...h,token:t||{symbol:short(h.mint),price:0}});
-  }
-  $('holdings').textContent=String(holdings.length);
-  renderHoldings();
-  $('holdingStatus').textContent='Balancat u lexuan nga Solana. Vlera varet nga çmimi i disponueshëm.';
+  $("status").textContent="Scan complete. "+unique.length+" pairs analysed. Refresh manually when needed.";
+ }catch(e){
+  $("status").textContent="Could not load live data: "+e.message+". Check internet and try again.";
+ }finally{
+  busy=false;
+  $("scan").disabled=false;
+  $("scan").textContent="SCAN NOW";
+ }
 }
-async function loadMarket(){
-  $('marketStatus').textContent='Duke rifreskuar tregun...';
-  try{
-    const urls=[
-      `${DS}/token-profiles/latest/v1`,
-      `${DS}/token-boosts/latest/v1`,
-      `${DS}/token-boosts/top/v1`
-    ];
-    const results=await Promise.allSettled(urls.map(u=>json(u)));
-    const mints=new Set([SOL]);
-    for(const r of results){
-      if(r.status!=='fulfilled')continue;
-      for(const x of (Array.isArray(r.value)?r.value:[])){
-        if(x.chainId==='solana'&&x.tokenAddress)mints.add(x.tokenAddress);
-      }
-    }
-    for(const q of ['SOL','BONK','WIF','JUP']){
-      try{
-        const d=await json(`${DS}/latest/dex/search?q=${encodeURIComponent(q)}`);
-        for(const p of d.pairs||[]){
-          if(p.chainId==='solana'&&p.baseToken?.address)mints.add(p.baseToken.address);
-        }
-      }catch(_){}
-    }
-    for(const mint of [...mints].slice(0,35)){
-      try{await fetchToken(mint)}catch(_){}
-    }
-    const sol=await fetchToken(SOL).catch(()=>null);
-    if(sol)solUsd=sol.price;
-    $('solPrice').textContent=solUsd?money(solUsd):'$—';
-    renderMarket();
-    $('marketStatus').textContent=`${tokens.size} token entries · ${new Date().toLocaleTimeString()}`;
-    say('Market refresh complete.');
-  }catch(e){
-    $('marketStatus').textContent='Market unavailable: '+e.message;
-    say('Market error: '+e.message);
-  }
-}
-function renderMarket(){
-  const arr=[...tokens.values()].sort((a,b)=>b.liq-a.liq).slice(0,40);
-  $('market').innerHTML=arr.length?arr.map(t=>`
-    <tr>
-      <td><span class="symbol">${esc(t.symbol)}</span><br><span class="small">${esc(short(t.mint))}</span></td>
-      <td>${money(t.price)}</td><td>${money(t.liq)}</td><td>${money(t.vol)}</td>
-      <td>${t.url?`<a href="${esc(t.url)}" target="_blank" rel="noopener">CHART ↗</a>`:'—'}</td>
-      <td><button data-buy="${esc(t.mint)}">BUY</button></td>
-    </tr>`).join('')
-    :'<tr><td colspan="6">No market tokens returned.</td></tr>';
-}
-function renderHoldings(){
-  $('tokenHoldings').innerHTML=holdings.length?holdings.map(h=>{
-    const qty=Number(h.amount)/10**h.decimals;
-    const value=qty*(h.token.price||0);
-    return `<tr>
-      <td><span class="symbol">${esc(h.token.symbol||short(h.mint))}</span><br><span class="small">${esc(short(h.mint))}</span></td>
-      <td>${qty.toLocaleString('en-US',{maximumFractionDigits:6})}</td>
-      <td>${h.token.price?money(h.token.price):'N/A'}</td>
-      <td>${h.token.price?money(value):'N/A'}</td>
-      <td><button data-sell="${esc(h.mint)}" ${h.token.price?'':'disabled'}>SELL ALL</button></td>
-    </tr>`;
-  }).join(''):'<tr><td colspan="5">No token balances found.</td></tr>';
-}
-async function swap(inputMint,outputMint,amount){
-  if(!publicKey||!provider)throw Error('Connect wallet first.');
-  if(busy)throw Error('A transaction is already in progress.');
-  if(API_KEY==='PASTE_PUBLISHABLE_KEY_HERE')throw Error('Vendose Publishable API key te konstanta API_KEY në kod.');
-  if(!/^\d+$/.test(String(amount))||BigInt(amount)<=0n)throw Error('Invalid token amount.');
-
-  busy=true;
-  try{
-    const slippage=Number($('slippage').value);
-    if(!Number.isFinite(slippage)||slippage<0.1||slippage>5)
-      throw Error('Slippage duhet të jetë mes 0.1% dhe 5%.');
-
-    const params=new URLSearchParams({
-      inputMint,outputMint,amount:String(amount),
-      taker:publicKey,
-      slippageBps:String(Math.round(slippage*100))
-    });
-
-    const order=await json(`${JUP}/order?${params}`,{
-      headers:headers()
-    });
-    if(!order.transaction){
-      throw Error(order.errorMessage||'Jupiter nuk ktheu transaksion të gatshëm.');
-    }
-    if(!order.requestId)throw Error('Mungon requestId nga Jupiter.');
-
-    say(`Order received · router: ${order.router||'unknown'} · reviewing wallet approval.`);
-    const raw=Uint8Array.from(atob(order.transaction),c=>c.charCodeAt(0));
-    const tx=VersionedTransaction.deserialize(raw);
-
-    // Wallet-i e nënshkruan transaksionin. Nuk kërkohet seed phrase.
-    const signed=await provider.signTransaction(tx);
-    const bytes=signed.serialize();
-    let binary='';
-    for(let i=0;i<bytes.length;i+=0x8000)
-      binary+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
-
-    const result=await json(`${JUP}/execute`,{
-      method:'POST',
-      headers:headers({'Content-Type':'application/json'}),
-      body:JSON.stringify({
-        signedTransaction:btoa(binary),
-        requestId:order.requestId
-      })
-    });
-
-    if(result.status!=='Success'){
-      throw Error(result.error||'Jupiter reported that the swap failed.');
-    }
-    say('Swap successful · '+result.signature);
-    say('Explorer: https://solscan.io/tx/'+result.signature);
-    alert('Swap successful!\nSignature: '+result.signature+
-      '\n\nKontrolloje transaksionin në Solscan.');
-    await refreshWallet();
-    await loadMarket();
-    return result;
-  }finally{busy=false}
-}
-async function buy(mint){
-  if(!publicKey){say('Connect wallet before buying.');return}
-  const amount=Number($('buyAmount').value);
-  if(!Number.isFinite(amount)||amount<0.001){say('Shuma minimale e vendosur është 0.001 SOL.');return}
-  const lamports=Math.round(amount*1e9);
-  if(!confirm(`BUY TOKEN\nMint: ${mint}\nShuma: ${amount} SOL\n\nMiratoje vetëm nëse detajet e wallet-it janë të sakta.`))return;
-  try{await swap(SOL,mint,String(lamports))}
-  catch(e){say('BUY failed/cancelled: '+e.message);alert('BUY failed/cancelled:\n'+e.message)}
-}
-async function sell(mint){
-  if(!publicKey){say('Connect wallet first.');return}
-  const h=holdings.find(x=>x.mint===mint);
-  if(!h){say('Token balance not found. Refresh holdings.');return}
-  if(!confirm(`SELL ALL TOKEN?\nMint: ${mint}\nSasia e papërpunuar: ${h.amount}\n\nKontrolloje ofertën dhe miratoje në wallet.`))return;
-  try{await swap(mint,SOL,h.amount.toString())}
-  catch(e){say('SELL failed/cancelled: '+e.message);alert('SELL failed/cancelled:\n'+e.message)}
-}
-
-$('connect').addEventListener('click',connect);
-$('disconnect').addEventListener('click',disconnect);
-$('refresh').addEventListener('click',loadMarket);
-$('loadHoldings').addEventListener('click',async()=>{
-  try{await refreshWallet()}catch(e){say('Holdings error: '+e.message)}
-});
-$('market').addEventListener('click',e=>{
-  const b=e.target.closest('[data-buy]');
-  if(b)buy(b.dataset.buy);
-});
-$('tokenHoldings').addEventListener('click',e=>{
-  const b=e.target.closest('[data-sell]');
-  if(b)sell(b.dataset.sell);
-});
-
-function attachWalletEvents(){
-  provider=findWallet();
-  if(provider?.on){
-    provider.on('disconnect',()=>{
-      publicKey=null;
-      $('connect').hidden=false;$('disconnect').hidden=true;
-      $('walletStatus').textContent='Wallet not connected';
-      $('walletState').textContent='OFFLINE';
-      $('solBalance').textContent='— SOL';
-      $('holdings').textContent='—';
-      say('Wallet disconnected by provider.');
-    });
-    provider.on('accountChanged',key=>{
-      if(key){
-        publicKey=key.toString();
-        $('walletStatus').textContent='CONNECTED · '+short(publicKey);
-        refreshWallet().catch(e=>say(e.message));
-      }else disconnect();
-    });
-  }
-}
-attachWalletEvents();
-loadMarket();
-setInterval(()=>loadMarket().catch(e=>say(e.message)),60000);
-setInterval(()=>{if(publicKey)refreshWallet().catch(e=>say(e.message))},30000);
+$("scan").addEventListener("click",scan);
+$("minliq").addEventListener("change",()=>{if(!busy)scan()});
+$("minscore").addEventListener("change",()=>{if(!busy)scan()});
+scan();
 </script>
 </body>
 </html>
