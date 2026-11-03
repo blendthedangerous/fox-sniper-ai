@@ -5,281 +5,352 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080807">
-<title>BLEND THE DANGEROUS | AI Analyst</title>
+<title>LINDON BOT BABA</title>
 <style>
-:root{--bg:#080807;--panel:#11110f;--gold:#d8b45b;--muted:#929087;--green:#69e6a2;--red:#ff7474}
+:root{--gold:#dfbb65;--bg:#080807;--muted:#9b9688;--green:#6ce7a0;--red:#ff7777}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#252013 0%,#080807 50%);color:#f5f0df;font-family:Arial,sans-serif}
-header{padding:24px 17px 16px;border-bottom:1px solid #40351b}
-.brand{color:var(--gold);font-size:11px;letter-spacing:4px;font-weight:bold}
-h1{font-size:26px;margin:10px 0 5px;letter-spacing:1px}
-.sub{font-size:12px;color:var(--muted);line-height:1.6}
-main{padding:15px;max-width:900px;margin:auto}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
-.stat,.card,.toolbar{background:linear-gradient(145deg,#171712,#0c0c0a);border:1px solid #353020;border-radius:12px}
-.stat{padding:12px 9px}.stat small{color:var(--muted);font-size:10px;display:block}
-.stat strong{display:block;font-size:20px;color:var(--gold);margin-top:7px}
-.toolbar{padding:13px;margin-bottom:13px}
-button,select{background:#17150e;color:#f5f0df;border:1px solid #79612b;border-radius:8px;padding:11px;font-size:12px}
-button{cursor:pointer;font-weight:bold}
-.primary{background:linear-gradient(110deg,#b58a2d,#f1d78a);color:#100e08;border:0}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.row select{flex:1;min-width:130px}
-#status{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.5}
-.notice{font-size:11px;color:#b8b1a0;line-height:1.6;margin:12px 2px}
-.card{padding:14px;margin-bottom:11px}
-.top{display:flex;gap:10px;align-items:center}
-.avatar{width:42px;height:42px;border-radius:10px;object-fit:cover;background:#242117}
-.name{font-weight:bold;font-size:15px;overflow-wrap:anywhere}
-.symbol{font-size:11px;color:var(--gold);margin-top:4px}
-.score{margin-left:auto;text-align:right;min-width:66px}
-.score b{font-size:21px;color:var(--gold)}
-.score small{display:block;color:var(--muted);font-size:10px}
-.badge{display:inline-block;padding:6px 9px;border-radius:5px;font-size:10px;font-weight:bold;letter-spacing:.5px;margin-top:12px}
-.buy{background:#123625;color:var(--green);border:1px solid #246b48}
-.watch{background:#302812;color:#f1d78a;border:1px solid #665020}
-.avoid{background:#351b1b;color:#ff9999;border:1px solid #703030}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
-.metric small{font-size:10px;color:var(--muted);display:block}
-.metric b{font-size:13px;display:block;margin-top:4px;overflow-wrap:anywhere}
-.positive{color:var(--green)}.negative{color:var(--red)}
-.reasons{font-size:11px;line-height:1.7;color:#c6c0ae;margin:8px 0}
-.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.links a{color:var(--gold);border:1px solid #514222;padding:9px;border-radius:7px;text-decoration:none;font-size:11px}
-#cards{margin-top:12px}
-footer{text-align:center;color:#666156;font-size:10px;padding:24px}
+body{margin:0;background:radial-gradient(ellipse at top,#282012,#080807 55%);color:#f5f0df;font-family:Arial,sans-serif}
+header{padding:24px 17px;border-bottom:1px solid #44371c}
+.brand{font-size:10px;letter-spacing:4px;color:var(--gold);font-weight:bold}
+h1{font-size:27px;letter-spacing:1px;margin:12px 0 6px}
+.sub{font-size:11px;color:var(--muted);line-height:1.7}
+main{max-width:850px;margin:auto;padding:15px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat,.panel,.card{background:linear-gradient(145deg,#181710,#0e0e0b);border:1px solid #39301d;border-radius:12px}
+.stat{padding:12px 9px}.stat small{display:block;color:var(--muted);font-size:9px}
+.stat b{display:block;margin-top:7px;color:var(--gold);font-size:19px}
+.panel{padding:13px;margin-bottom:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button,select{background:#17150e;color:#f5f0df;border:1px solid #68542a;border-radius:8px;padding:11px;font-size:12px}
+button{font-weight:bold;cursor:pointer}
+select{flex:1;min-width:120px}
+.primary{background:linear-gradient(110deg,#ad8126,#f3d98e);color:#111;border:0}
+button:disabled{opacity:.45}
+#status{font-size:11px;line-height:1.6;color:#c7bda5;margin-top:12px;overflow-wrap:anywhere}
+.card{padding:14px;margin-bottom:12px}
+.top{display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:9px;object-fit:cover;background:#28251a}
+.name{font-size:14px;font-weight:bold;overflow-wrap:anywhere}
+.symbol{font-size:11px;color:var(--gold);margin-top:5px}
+.score{text-align:right;margin-left:auto}
+.score b{font-size:23px;color:var(--gold)}
+.score small{display:block;font-size:9px;color:var(--muted)}
+.badge{display:inline-block;padding:7px 9px;border-radius:5px;font-size:10px;font-weight:bold;margin-top:13px}
+.buy{background:#123624;color:var(--green);border:1px solid #286d49}
+.watch{background:#342b15;color:#f4d581;border:1px solid #665020}
+.avoid{background:#381d1d;color:#ff9999;border:1px solid #713333}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:13px 8px;margin:16px 0}
+.metric small{display:block;color:var(--muted);font-size:9px}
+.metric b{display:block;font-size:13px;margin-top:5px;overflow-wrap:anywhere}
+.green{color:var(--green)}.red{color:var(--red)}
+.reasons{font-size:11px;line-height:1.8;color:#c7c0af}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.links a,.links button{font-size:10px;padding:10px;border-radius:7px;text-decoration:none}
+.pump{background:linear-gradient(110deg,#ae842b,#f1d78a);color:#100e08;font-weight:bold;border:0}
+.dex{color:var(--gold);border:1px solid #594823}
+.note{font-size:10px;line-height:1.7;color:#969080;margin:12px 2px}
+#found{display:none;background:#142b1d;border:1px solid #3a9b62;padding:14px;border-radius:10px;margin-bottom:12px;font-size:12px;line-height:1.7}
+#found a{color:var(--green)}
+footer{text-align:center;font-size:10px;color:#777061;padding:22px}
 </style>
 </head>
 <body>
 <header>
- <div class="brand">B.T.D. // SOLANA INTELLIGENCE</div>
- <h1>BLEND THE DANGEROUS</h1>
- <div class="sub">PUMP.FUN TOKEN ANALYST · LIVE MARKET SCANNER</div>
+ <div class="brand">L.B.B. / SOLANA INTELLIGENCE</div>
+ <h1>LINDON BOT BABA</h1>
+ <div class="sub">PUMP.FUN TOKEN ANALYST · AUTOMATIC SCANNER</div>
 </header>
+
 <main>
  <div class="stats">
-  <div class="stat"><small>TOKENS CHECKED</small><strong id="checked">0</strong></div>
-  <div class="stat"><small>BUY CANDIDATES</small><strong id="buys">0</strong></div>
-  <div class="stat"><small>LAST SCAN</small><strong id="last" style="font-size:14px">--:--</strong></div>
+  <div class="stat"><small>PAIRS ANALYSED</small><b id="checked">0</b></div>
+  <div class="stat"><small>BUY CANDIDATES</small><b id="buys">0</b></div>
+  <div class="stat"><small>LAST SCAN</small><b id="clock" style="font-size:13px">Starting…</b></div>
  </div>
 
- <div class="toolbar">
+ <div class="panel">
   <div class="row">
    <select id="minliq">
-    <option value="3000">Min liquidity: $3K</option>
-    <option value="5000" selected>Min liquidity: $5K</option>
-    <option value="10000">Min liquidity: $10K</option>
-    <option value="20000">Min liquidity: $20K</option>
+    <option value="3000">$3K minimum liquidity</option>
+    <option value="5000" selected>$5K minimum liquidity</option>
+    <option value="10000">$10K minimum liquidity</option>
+    <option value="20000">$20K minimum liquidity</option>
    </select>
    <select id="minscore">
-    <option value="60">Signal threshold: 60</option>
-    <option value="70" selected>Signal threshold: 70</option>
-    <option value="80">Signal threshold: 80</option>
-    <option value="90">Signal threshold: 90</option>
+    <option value="60">Score threshold: 60</option>
+    <option value="70" selected>Score threshold: 70</option>
+    <option value="80">Score threshold: 80</option>
+    <option value="90">Score threshold: 90</option>
    </select>
-   <button class="primary" id="scan">SCAN NOW</button>
   </div>
-  <div id="status">Waiting to start first scan…</div>
+  <div class="row" style="margin-top:9px">
+   <button id="start" class="primary">START AUTO SCAN</button>
+   <button id="stop">STOP</button>
+   <button id="manual">SCAN NOW</button>
+  </div>
+  <div id="status">Connecting to live market data…</div>
  </div>
 
- <div class="notice">
-  <b style="color:#e4c779">SIGNAL RULE:</b> score is based on liquidity, trading activity,
-  buy/sell balance, momentum and token age. A high score is a candidate, not a guarantee.
-  Tokens without enough reliable data are not marked BUY NOW.
+ <div id="found"></div>
+ <div class="note">
+  BUY NOW is a score-based candidate signal, not a guarantee of profit.
+  The scanner pauses when a candidate passes the configured filters.
+  It does not execute trades or verify every scam risk.
  </div>
  <div id="cards"></div>
 </main>
-<footer>BLEND THE DANGEROUS · DATA BY DEXSCREENER · SIGNALS ARE NOT FINANCIAL ADVICE</footer>
+
+<footer>LINDON BOT BABA · LIVE DATA VIA DEXSCREENER</footer>
 
 <script>
 const API="https://api.dexscreener.com";
 const $=id=>document.getElementById(id);
-let busy=false, seen=new Set();
+let running=false,busy=false,pausedOnCandidate=false,timer=null;
+const refreshSeconds=20;
+const alertedTokens=new Set();
 
+function num(v){v=Number(v);return Number.isFinite(v)?v:0}
 function money(n){
- if(!Number.isFinite(n))return "N/A";
  if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
  if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";
  return "$"+n.toFixed(n<1?4:2);
 }
-function pct(n){
- if(!Number.isFinite(n))return "N/A";
- return (n>0?"+":"")+n.toFixed(1)+"%";
-}
+function pct(n){return (n>0?"+":"")+n.toFixed(1)+"%"}
 function esc(s){
  return String(s??"").replace(/[&<>"']/g,c=>({
  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
  }[c]));
 }
-function pumpLink(address){
+function pumpUrl(address){
  return "https://pump.fun/coin/"+encodeURIComponent(address);
 }
 async function getJson(url){
  const r=await fetch(url,{cache:"no-store"});
- if(!r.ok)throw new Error("HTTP "+r.status);
+ if(!r.ok)throw new Error("Market API returned "+r.status);
  return r.json();
 }
 
 function analyze(p){
- const liq=Number(p.liquidity?.usd)||0;
- const vol=Number(p.volume?.h1)||0;
- const tx=p.txns?.h1||{};
- const buys=Number(tx.buys)||0;
- const sells=Number(tx.sells)||0;
+ const liq=num(p.liquidity?.usd);
+ const vol=num(p.volume?.h1);
+ const buys=num(p.txns?.h1?.buys);
+ const sells=num(p.txns?.h1?.sells);
  const total=buys+sells;
- const change=Number(p.priceChange?.m5)||0;
- const changeH1=Number(p.priceChange?.h1)||0;
- const cap=Number(p.marketCap||p.fdv)||0;
- const age=p.pairCreatedAt?Math.max(0,(Date.now()-p.pairCreatedAt)/60000):null;
+ const m5=num(p.priceChange?.m5);
+ const h1=num(p.priceChange?.h1);
+ const cap=num(p.marketCap||p.fdv);
+ const age=p.pairCreatedAt
+  ?Math.max(0,(Date.now()-p.pairCreatedAt)/60000):null;
  let score=0,why=[];
 
- // Liquidity: more depth generally means less slippage.
- if(liq>=20000){score+=25;why.push("Strong liquidity")}
+ if(liq>=20000){score+=25;why.push("Deep liquidity")}
  else if(liq>=10000){score+=21;why.push("Good liquidity")}
- else if(liq>=5000){score+=16;why.push("Usable liquidity")}
+ else if(liq>=5000){score+=16;why.push("Liquidity meets baseline")}
  else if(liq>=3000){score+=9;why.push("Thin liquidity")}
 
- // Real activity.
  if(vol>=50000){score+=20;why.push("High hourly volume")}
- else if(vol>=15000){score+=16;why.push("Good hourly volume")}
- else if(vol>=5000){score+=11;why.push("Some trading volume")}
- else if(vol>=1000){score+=5;why.push("Low trading volume")}
+ else if(vol>=15000){score+=16;why.push("Strong hourly activity")}
+ else if(vol>=5000){score+=11;why.push("Moderate volume")}
+ else if(vol>=1000){score+=5;why.push("Low volume")}
 
- // Buy/sell balance. Transaction counts are only a rough proxy.
  if(total>=30){
-   const ratio=buys/Math.max(1,sells);
-   if(ratio>=1.8){score+=18;why.push("Buy transactions dominate")}
-   else if(ratio>=1.2){score+=12;why.push("Buy-side advantage")}
-   else if(ratio>=0.9){score+=5;why.push("Mixed buy/sell activity")}
-   else {score-=8;why.push("Sell transactions dominate")}
- }else{
-   why.push("Few hourly transactions")
- }
+  const ratio=buys/Math.max(1,sells);
+  if(ratio>=1.8){score+=18;why.push("Buy transactions dominate")}
+  else if(ratio>=1.2){score+=12;why.push("Buy-side advantage")}
+  else if(ratio>=.9){score+=5;why.push("Mixed buy/sell activity")}
+  else{score-=8;why.push("Sell-side pressure")}
+ }else why.push("Few hourly transactions");
 
- // Momentum, with a penalty for extreme short-term spikes.
- if(change>0.5&&change<=15){score+=12;why.push("Positive 5m momentum")}
- else if(change>15&&change<=30){score+=6;why.push("Fast move: chase risk")}
- else if(change>30){score-=8;why.push("Possible price spike")}
- else if(change<-5){score-=10;why.push("Negative short-term momentum")}
+ if(m5>.5&&m5<=15){score+=12;why.push("Positive short-term momentum")}
+ else if(m5>15&&m5<=30){score+=6;why.push("Fast move; chase risk")}
+ else if(m5>30){score-=8;why.push("Extreme 5m spike risk")}
+ else if(m5< -5){score-=10;why.push("Negative short-term momentum")}
 
- if(changeH1>0&&changeH1<80){score+=8;why.push("Positive 1h trend")}
- else if(changeH1>=80){score-=6;why.push("Large hourly pump risk")}
- else if(changeH1<-10){score-=8;why.push("Negative hourly trend")}
+ if(h1>0&&h1<80){score+=8;why.push("Positive hourly trend")}
+ else if(h1>=80){score-=6;why.push("Large hourly pump risk")}
+ else if(h1< -10){score-=8;why.push("Negative hourly trend")}
 
  if(age!==null){
-   if(age>=10&&age<=180){score+=8;why.push("Early market history")}
-   else if(age<10){score-=8;why.push("Very new: limited evidence")}
-   else if(age>1440){score-=3;why.push("Older pair")}
+  if(age>=10&&age<=180){score+=8;why.push("Early pair history")}
+  else if(age<10){score-=8;why.push("Very new; limited evidence")}
+  else if(age>1440){score-=3;why.push("Older pair")}
  }
+
  if(cap>0&&cap<500000){score+=4;why.push("Small-cap profile")}
  score=Math.max(0,Math.min(100,score));
 
- const minLiq=Number($("minliq").value);
- const threshold=Number($("minscore").value);
- const eligible=liq>=minLiq&&vol>=1000&&total>=10&&age!==null&&age>=5;
- const signal=eligible&&score>=threshold?"BUY NOW 🔥":
-   score>=45?"WATCH 👀":"AVOID / WAIT";
+ const threshold=num($("minscore").value);
+ const minliq=num($("minliq").value);
+ const eligible=liq>=minliq&&vol>=1000&&total>=10&&age!==null&&age>=5;
+ const signal=eligible&&score>=threshold
+  ?"BUY NOW 🔥":score>=45?"WATCH 👀":"AVOID / WAIT";
 
- return {score,signal,why,liq,vol,buys,sells,change,changeH1,cap,age,eligible};
+ return {score,signal,why,liq,vol,buys,sells,m5,h1,cap,age,eligible};
 }
 
-function render(p,a){
- const token=p.baseToken||{};
- const addr=token.address||"";
- const name=esc(token.name||"Unknown token");
- const sym=esc(token.symbol||"???");
- const url=p.url||"https://dexscreener.com/solana/"+encodeURIComponent(addr);
- const status=a.signal.startsWith("BUY")?"buy":
-   a.signal.startsWith("WATCH")?"watch":"avoid";
- const img=p.info?.imageUrl||"";
+function makeCard(p,a){
+ const t=p.baseToken||{};
+ const addr=t.address||"";
  const card=document.createElement("article");
  card.className="card";
+ const badge=a.signal.startsWith("BUY")?"buy":
+  a.signal.startsWith("WATCH")?"watch":"avoid";
+ const img=p.info?.imageUrl;
+
  card.innerHTML=`
-  <div class="top">
-   ${img?`<img class="avatar" src="${esc(img)}" alt="" loading="lazy" onerror="this.style.display='none'">`:
-   `<div class="avatar"></div>`}
-   <div style="min-width:0;flex:1">
-    <div class="name">${name}</div>
-    <div class="symbol">$${sym} · SOLANA</div>
-   </div>
-   <div class="score"><b>${a.score}</b><small> / 100 SCORE</small></div>
+ <div class="top">
+  ${img?`<img class="avatar" src="${esc(img)}" alt="" onerror="this.style.display='none'">`:'<div class="avatar"></div>'}
+  <div style="flex:1;min-width:0">
+   <div class="name">${esc(t.name||"Unknown Token")}</div>
+   <div class="symbol">$${esc(t.symbol||"???")} · SOLANA</div>
   </div>
-  <div class="badge ${status}">${a.signal}</div>
-  <div class="metrics">
-   <div class="metric"><small>LIQUIDITY</small><b>${money(a.liq)}</b></div>
-   <div class="metric"><small>VOLUME 1H</small><b>${money(a.vol)}</b></div>
-   <div class="metric"><small>MARKET CAP</small><b>${money(a.cap)}</b></div>
-   <div class="metric"><small>PRICE CHANGE 5M</small><b class="${a.change>=0?'positive':'negative'}">${pct(a.change)}</b></div>
-   <div class="metric"><small>BUY / SELL TX 1H</small><b>${a.buys} / ${a.sells}</b></div>
-   <div class="metric"><small>PAIR AGE</small><b>${a.age===null?'N/A':a.age<60?Math.round(a.age)+' min':(a.age/60).toFixed(1)+' h'}</b></div>
-  </div>
-  <div class="reasons">${a.why.map(esc).join(" · ")}</div>
-  <div class="links">
-   <a href="${esc(pumpLink(addr))}" target="_blank" rel="noopener">OPEN ON PUMP.FUN ↗</a>
-   <a href="${esc(url)}" target="_blank" rel="noopener">DEXSCREENER DATA ↗</a>
-   <button class="copy">COPY TOKEN ADDRESS</button>
-  </div>`;
+  <div class="score"><b>${a.score}</b><small>SCORE / 100</small></div>
+ </div>
+ <div class="badge ${badge}">${a.signal}</div>
+ <div class="metrics">
+  <div class="metric"><small>LIQUIDITY</small><b>${money(a.liq)}</b></div>
+  <div class="metric"><small>VOLUME 1H</small><b>${money(a.vol)}</b></div>
+  <div class="metric"><small>MARKET CAP / FDV</small><b>${money(a.cap)}</b></div>
+  <div class="metric"><small>PRICE CHANGE 5M</small><b class="${a.m5>=0?'green':'red'}">${pct(a.m5)}</b></div>
+  <div class="metric"><small>BUY / SELL TX 1H</small><b>${a.buys} / ${a.sells}</b></div>
+  <div class="metric"><small>PAIR AGE</small><b>${a.age===null?'N/A':a.age<60?Math.round(a.age)+' min':(a.age/60).toFixed(1)+' h'}</b></div>
+ </div>
+ <div class="reasons">${a.why.map(esc).join(" · ")}</div>
+ <div class="links">
+  <a class="pump" href="${esc(pumpUrl(addr))}" target="_blank" rel="noopener">OPEN ON PUMP.FUN ↗</a>
+  <a class="dex" href="${esc(p.url||'https://dexscreener.com/solana/'+addr)}" target="_blank" rel="noopener">VIEW CHART ↗</a>
+  <button class="copy">COPY ADDRESS</button>
+ </div>`;
+
  card.querySelector(".copy").onclick=async()=>{
-  try{await navigator.clipboard.writeText(addr);$("status").textContent="Token address copied."}
-  catch{$("status").textContent="Copy unavailable. Open token on Pump.fun to view address."}
+  try{
+   await navigator.clipboard.writeText(addr);
+   $("status").textContent="Token address copied.";
+  }catch{
+   $("status").textContent="Copy failed; use the Pump.fun link to view the token.";
+  }
  };
  return card;
 }
 
 async function scan(){
- if(busy)return;
+ if(busy||pausedOnCandidate||!running)return;
  busy=true;
- $("scan").disabled=true;
- $("scan").textContent="SCANNING…";
- $("status").textContent="Loading latest Solana token profiles…";
+ $("manual").disabled=true;
+ $("status").textContent="Fetching new Solana token profiles…";
+
  try{
   const profiles=await getJson(API+"/token-profiles/latest/v1");
-  const candidates=(Array.isArray(profiles)?profiles:[])
-    .filter(x=>x.chainId==="solana"&&x.tokenAddress)
-    .slice(0,18);
-  $("status").textContent="Checking market data for "+candidates.length+" tokens…";
+  const list=(Array.isArray(profiles)?profiles:[])
+   .filter(x=>x.chainId==="solana"&&x.tokenAddress).slice(0,25);
 
-  const results=await Promise.allSettled(candidates.map(async item=>{
-    const data=await getJson(API+"/token-pairs/v1/solana/"+encodeURIComponent(item.tokenAddress));
-    const pairs=(Array.isArray(data)?data:[])
-      .filter(p=>p.chainId==="solana"&&p.baseToken?.address?.toLowerCase()===item.tokenAddress.toLowerCase());
-    if(!pairs.length)return null;
-    pairs.sort((a,b)=>(Number(b.liquidity?.usd)||0)-(Number(a.liquidity?.usd)||0));
-    return pairs[0];
+  $("status").textContent="Checking "+list.length+" token profiles…";
+
+  const results=await Promise.allSettled(list.map(async item=>{
+   const pairs=await getJson(
+    API+"/token-pairs/v1/solana/"+encodeURIComponent(item.tokenAddress)
+   );
+   const valid=(Array.isArray(pairs)?pairs:[])
+    .filter(p=>p.chainId==="solana"&&
+     p.baseToken?.address?.toLowerCase()===item.tokenAddress.toLowerCase());
+   valid.sort((a,b)=>num(b.liquidity?.usd)-num(a.liquidity?.usd));
+   return valid[0]||null;
   }));
 
-  const pairs=results.filter(r=>r.status==="fulfilled"&&r.value)
-    .map(r=>r.value);
-  const analyzed=pairs.map(p=>({p,a:analyze(p)}))
-    .sort((x,y)=>y.a.score-x.a.score);
-  const unique=[];
-  const used=new Set();
-  for(const item of analyzed){
-    const address=item.p.baseToken.address;
-    if(!used.has(address)){unique.push(item);used.add(address)}
-  }
-  $("checked").textContent=unique.length;
-  $("buys").textContent=unique.filter(x=>x.a.signal.startsWith("BUY")).length;
-  $("last").textContent=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit",second:"2-digit"});
+  const unique=new Map();
+  results.forEach(r=>{
+   if(r.status==="fulfilled"&&r.value){
+    const p=r.value;
+    if(!unique.has(p.baseToken.address))unique.set(p.baseToken.address,p);
+   }
+  });
+
+  const data=[...unique.values()]
+   .map(p=>({p,a:analyze(p)}))
+   .sort((x,y)=>y.a.score-x.a.score);
+
+  $("checked").textContent=data.length;
+  $("buys").textContent=data.filter(x=>x.a.signal.startsWith("BUY")).length;
+  $("clock").textContent=new Date().toLocaleTimeString();
+
   $("cards").replaceChildren();
-  if(!unique.length){
-    $("cards").innerHTML='<div class="card">No usable market pairs returned. Try again shortly.</div>';
+  data.forEach(({p,a})=>$("cards").appendChild(makeCard(p,a)));
+
+  const candidate=data.find(x=>
+   x.a.signal.startsWith("BUY")&&
+   !alertedTokens.has(x.p.baseToken.address)
+  );
+
+  if(candidate){
+   alertedTokens.add(candidate.p.baseToken.address);
+   pausedOnCandidate=true;
+   running=false;
+   clearInterval(timer);
+
+   const addr=candidate.p.baseToken.address;
+   $("found").style.display="block";
+   $("found").innerHTML=`
+    <b>🟡 BUY CANDIDATE FOUND — SCANNER PAUSED</b><br>
+    ${esc(candidate.p.baseToken.name||"Token")}
+    ($${esc(candidate.p.baseToken.symbol||"???")})
+    · Score ${candidate.a.score}/100<br>
+    <a href="${esc(pumpUrl(addr))}" target="_blank" rel="noopener">
+    OPEN THIS COIN ON PUMP.FUN ↗</a><br>
+    <span style="color:#c8c1ad">
+    Check liquidity, holders and token risks before trading.
+    </span>`;
+
+   $("status").textContent="Candidate found. Automatic scanning stopped.";
+   $("start").textContent="RESUME SCANNING";
   }else{
-    unique.forEach(({p,a})=>$("cards").appendChild(render(p,a)));
+   $("status").textContent="Scan complete. Next scan in 20 seconds.";
   }
-  $("status").textContent="Scan complete. "+unique.length+" pairs analysed. Refresh manually when needed.";
  }catch(e){
-  $("status").textContent="Could not load live data: "+e.message+". Check internet and try again.";
+  $("status").textContent="Could not fetch live data: "+
+   e.message+". Check your connection and try again.";
  }finally{
   busy=false;
-  $("scan").disabled=false;
-  $("scan").textContent="SCAN NOW";
+  $("manual").disabled=false;
  }
 }
-$("scan").addEventListener("click",scan);
-$("minliq").addEventListener("change",()=>{if(!busy)scan()});
-$("minscore").addEventListener("change",()=>{if(!busy)scan()});
-scan();
+
+function startScanner(){
+ if(busy)return;
+ pausedOnCandidate=false;
+ running=true;
+ $("found").style.display="none";
+ $("start").textContent="AUTO SCAN RUNNING";
+ $("status").textContent="Automatic scanning enabled.";
+ clearInterval(timer);
+ scan();
+ timer=setInterval(()=>{
+  if(running&&!pausedOnCandidate)scan();
+ },refreshSeconds*1000);
+}
+
+function stopScanner(){
+ running=false;
+ clearInterval(timer);
+ $("start").textContent="RESUME SCANNING";
+ $("status").textContent="Scanner stopped. Press RESUME SCANNING to continue.";
+}
+
+$("start").addEventListener("click",startScanner);
+$("stop").addEventListener("click",stopScanner);
+$("manual").addEventListener("click",()=>{
+ if(!busy&&!pausedOnCandidate){
+  running=true;
+  scan();
+ }
+});
+$("minliq").addEventListener("change",()=>{
+ if(running&&!busy&&!pausedOnCandidate)scan();
+});
+$("minscore").addEventListener("change",()=>{
+ if(running&&!busy&&!pausedOnCandidate)scan();
+});
+
+startScanner();
 </script>
 </body>
 </html>
